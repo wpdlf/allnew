@@ -1,4 +1,7 @@
 # .gitignore
+
+## c programming
 c/**/a.out
 c/**/hello
 c/**/*.o
+c/**/test*
