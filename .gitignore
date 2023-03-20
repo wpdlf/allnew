@@ -5,3 +5,10 @@ c/**/a.out
 c/**/hello
 c/**/*.o
 c/**/test
+<<<<<<< HEAD
+=======
+
+##java
+
+java/*.class
+>>>>>>> 323c86c73e69fd4d34900d4b61dfd444fa86f53d
