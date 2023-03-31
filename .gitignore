@@ -1,5 +1,4 @@
 # .gitignore
-
 .ftpconfig
 
 ## c programming
@@ -10,7 +9,6 @@ c/**/test
 
 
 ##java
-
 java/*.class
 
 
@@ -27,4 +25,6 @@ maven/target
 node/**/node_modules
 
 
-##
+##python
+python/**/.venv
+python/**/__pycache__/
