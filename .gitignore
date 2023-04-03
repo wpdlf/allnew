@@ -1,7 +1,7 @@
-# .gitignore
+#.gitignore
 .ftpconfig
 
-## c programming
+##c programming
 c/**/a.out
 c/**/hello
 c/**/*.o
@@ -23,6 +23,7 @@ maven/target
 
 ##nodejs
 node/**/node_modules
+node/**/package-lock.json
 
 
 ##python
