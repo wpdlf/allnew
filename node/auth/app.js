@@ -4,7 +4,6 @@ const path = require('path')
 const app = express()
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
-const router = express.Router()
 
 app.set('port', process.env.PORT || 8000)
 app.use(morgan('dev'))
