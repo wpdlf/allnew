@@ -11,18 +11,17 @@
   <h3>mysql - st_info</h3>
   <hr />
   <form>
-    ST_ID : <input type="text" name="ST_ID" id="id" /><br>
-    NAME : <input type="text" name="NAME" id="name" /><br>
-    DEPT : <input type="text" name="DEPT" id="dept" /><br><br>
+    ST_ID : <input type="text" id="id" /><br>
+    NAME : <input type="text" id="name" /><br>
+    DEPT : <input type="text" id="dept" /><br><br>
+
+    <input type="button" value="GET /Hello" onclick='document.targetURL.location.href="/Hello"'>&nbsp;&nbsp;
+    <input type="button" value="Select st_info" onclick='document.targetURL.location.href="/select"'>&nbsp;&nbsp;
+    <input type="button" value="Insert st_info"
+      onclick="location.href=`/insert?ST_ID=${document.getElementById('id').value}&NAME=${document.getElementById('name').value}&DEPT=${document.getElementById('dept').value}`;">&nbsp;&nbsp;<br><br>
   </form>
 
-  <input type="button" value="GET /Hello" onclick='document.targetURL.location.href="/Hello"'>&nbsp;&nbsp;
-  <input type="button" value="Select st_info" onclick='document.targetURL.location.href="/select"'>&nbsp;&nbsp;
-  <input type="button" value="Insert st_info"
-    onclick="location.href=`/insert?ST_ID=${document.getElementById('id').value}&NAME=${document.getElementById('name').value}&DEPT=${document.getElementById('dept').value}`;">&nbsp;&nbsp;<br><br>
-
-  <iframe name="targetURL" src="/Hello" class="iframe-preview center" width="90%" height="500"
-    style="border: none;"></iframe>
+  <iframe name="targetURL" src="" class="iframe-preview center" width="90%" height="500"></iframe>
 </body>
 
 </html>
