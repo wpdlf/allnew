@@ -1,5 +1,6 @@
 body {
     background-color: rgb(16, 199, 122);
+    /* background-image: url("border.png"); */
 }
 
 p {
@@ -15,21 +16,49 @@ hr {
 
 form {
     border: solid green;
-    border-radius: 5px;
+    border-radius: 15px;
     width: 35%;
     text-align: center;
+    margin: auto;
+    background-color: rgb(223, 255, 216);
+}
+
+form#admin_form {
+    border: solid green;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(223, 255, 216);
+    height: 500px;
+    width: 540px;
+    margin-left: 65px;
+}
+
+iframe {
+    border: solid green;
+    border-radius: 10px;
+    height: 500px;
+    width: 540px;
+    background-color: rgb(223, 255, 216);
+    margin-left: 65px;
 }
 
 button,
-input[type=button],
-input[type=submit],
-input[type=text],
-input[type=password] {
+input,
+button[type=submit] {
     border-radius: 5px;
     border: solid green;
-    background-color: greenyellow;
+    background-color: rgb(226, 247, 196);
     font-weight: 1000;
     color: green;
+}
+
+button,
+input:hover {
+    background-color: yellowgreen;
+}
+
+button[type=submit]:hover {
+    background-color: yellowgreen;
 }
 
 h2 {
@@ -37,6 +66,7 @@ h2 {
     color: green;
 }
 
-form {
-    margin: auto;
+div.box {
+    margin: 40px;
+    border-width: 1px;
 }

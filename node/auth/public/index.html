@@ -9,17 +9,21 @@
 <body>
     <h2>Login</h2>
     <hr>
-    <form action="/login" name="userForm" method="post">
-        <p>Userid <input style="background-color: white;" type="text" size="15" name="id"></p>
-        <p>Password <input style="background-color: white;" type="password" size="15" name="pw"></p>
+    <div class="box">
+        <form action="/login" name="userForm" method="post">
+            <p>Userid <input style="background-color: rgb(226, 247, 196); margin-left: 20px;" type="text" size="15"
+                    name="id">
+            </p>
+            <p>Password <input style="background-color: rgb(226, 247, 196);" type="password" size="15" name="pw"></p>
 
-        <input type="submit" value="Sign in">&nbsp;&nbsp;
-        <input type="button" value="Clear" onClick="location.href='index.html'"><br><br>
+            <input type="submit" value="Sign in">&nbsp;&nbsp;
+            <input type="button" value="Clear" onClick="location.href='index.html'"><br><br>
 
-        <input style="margin-bottom: 10px;" type="button" value="Create an Account"
-            onClick="location.href='register.html'">
+            <input style="margin-bottom: 10px;" type="button" value="Create an Account"
+                onClick="location.href='register.html'">
 
-    </form>
+        </form>
+    </div>
 </body>
 
 </html>

@@ -3,67 +3,36 @@
 
 <head>
     <meta charset="utf-8">
-    <style>
-        input[type=text] {
-            border-radius: 5px;
-            border: solid skyblue;
-        }
-
-        p {
-            color: rgb(66, 66, 216);
-            font-weight: 1000;
-        }
-
-        button,
-        input[type=button],
-        input[type=submit] {
-            border-radius: 5px;
-            border: solid skyblue;
-            background-color: skyblue;
-            font-weight: 1000;
-        }
-
-        form {
-            border: solid skyblue;
-            border-radius: 5px;
-            width: 35%;
-            text-align: center;
-        }
-
-        iframe {
-            margin: auto;
-            text-align: center;
-            border-radius: 5px;
-            border: solid skyblue;
-        }
-    </style>
+    <link type="text/css" rel="stylesheet" href="mystyle.css">
 </head>
 
 <body>
-    <h2 style="text-align: center; color: rgb(66, 66, 216);">사용자 정보 입력</h2>
+    <h2>사용자 정보 입력</h2>
+    <hr>
+    <div style="border: 0; float: left; width: 50%; margin-top: 40px;">
+        <form id="admin_form" action="/insert" name="userForm" method="post" target="targetURL">
+            <p>Userid <input style="margin-left: 30px;" type="text" size="15" name="id"></p>
+            <p>UserName <input type="text" size="15" name="name"></p>
+            <p>Gender <input style="width: 151px; margin-left: 25px;" type="text" size="10" name="gender"></p>
+            <p>Age <input style="width: 151px; margin-left: 50px;" type="text" size="5" name="age"></p>
+            <p>Location <input style="width: 151px; margin-left: 15px;" type="text" size="15" name="loc"></p><br>
 
-    <form style="margin: auto;" action="/insert" name="userForm" method="post" target="targetURL">
-        <p>Userid <input type="text" size="15" name="id"></p>
-        <p>UserName <input type="text" size="15" name="name"></p>
-        <p>Gender <input type="text" size="10" name="gender"></p>
-        <p>Age <input type="text" size="5" name="age"></p>
-        <p>Location <input type="text" size="15" name="loc"></p>
+            <input type="button" value="get select" onclick='document.targetURL.location.href="/select"'>&nbsp;&nbsp;
 
-        <input type="button" value="get select" onclick='document.targetURL.location.href="/select"'>&nbsp;&nbsp;
+            <input type="button" value="get selectQuery"
+                onclick='document.targetURL.location.href="/selectQuery?userid="+document.userForm.id.value'>&nbsp;&nbsp;
 
-        <input type="button" value="get selectQuery"
-            onclick='document.targetURL.location.href="/selectQuery?userid="+document.userForm.id.value'>&nbsp;&nbsp;
+            <input type="submit" value="post insert"><br><br>
 
-        <input type="submit" value="post insert">&nbsp;&nbsp;
+            <button style="margin-bottom: 10px;" type="submit" formaction="/update">post update</button>&nbsp;&nbsp;
 
-        <button type="submit" formaction="/update">post update</button>&nbsp;&nbsp;
+            <button style="margin-bottom: 10px;" type="submit" formaction="/delete">post delete</button>&nbsp;&nbsp;
+        </form>
+    </div>
 
-        <button style="margin-bottom: 10px;" type="submit" formaction="/delete">post delete</button>&nbsp;&nbsp;
-    </form>
-
-    <p align="middle">
-        <iframe name="targetURL" width="40%" height="400" src="/hello">
-    </p>
+    <div style="border: 0; float: left; width: 50%; margin-top: 40px;">
+        <iframe name="targetURL" src="/hello">
+    </div>
 </body>
 
 </html>
