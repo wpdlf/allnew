@@ -53,8 +53,8 @@ app.post("/selectQuery", (req, res) => {
 
 // request 1, query 1
 app.post("/insert", (req, res) => {
-    const { id, name, gender, age, loc } = req.body;
-    const result = connection.query("insert into users values (?, ?, ?, ?, ?)", [id, name, gender, age, loc]);
+    const { id, pw } = req.body;
+    const result = connection.query("insert into user values (?, ?)", [id, pw]);
     console.log(result);
     res.redirect('/selectQuery?userid=' + req.body.id);
 });
@@ -73,36 +73,6 @@ app.post("/delete", (req, res) => {
     const result = connection.query("delete from user where userid=?", [id]);
     console.log(result);
     res.redirect('/select');
-});
-
-
-
-
-
-app.post("/login", (req, res) => {
-    const { id, pw } = req.body;
-    const result = connection.query("select * from user where userid=? and passwd=?", [id, pw]);
-    if (result.length == 0) {
-        res.redirect('error.html');
-    }
-    else {
-        if (id == 'admin') {
-            res.redirect('admin_page.html');
-            return console.log(id + " 사용자로 로그인했습니다.");
-        }
-        else if (id == 'root') {
-            res.redirect('member.html');
-            return console.log(id + " 사용자로 로그인했습니다.");
-        }
-        res.redirect('main.html');
-        return console.log(id + " 사용자로 로그인했습니다.");
-    }
-});
-
-app.post("/register", (req, res) => {
-    const { id, pw } = req.body;
-    const result = connection.query("insert into user values (?, ?)", [id, pw]);
-    res.redirect('index.html');
 });
 
 module.exports = app;
