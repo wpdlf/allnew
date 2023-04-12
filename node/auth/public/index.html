@@ -3,19 +3,21 @@
 
 <head>
     <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="mystyle.css">
 </head>
 
 <body>
-    <h3>Login</h3>
+    <h2>Login</h2>
     <hr>
     <form action="/login" name="userForm" method="post">
-        <p>Userid : <input type="text" size="15" name="id"></p>
-        <p>Password : <input type="password" size="15" name="pw"></p>
+        <p>Userid <input style="background-color: white;" type="text" size="15" name="id"></p>
+        <p>Password <input style="background-color: white;" type="password" size="15" name="pw"></p>
 
-        <input type="submit" value="로그인">&nbsp;&nbsp;
-        <input type="button" value="취소" onClick="location.href='index.html'"><br><br>
+        <input type="submit" value="Sign in">&nbsp;&nbsp;
+        <input type="button" value="Clear" onClick="location.href='index.html'"><br><br>
 
-        <a href="register.html">회원가입</a>
+        <input style="margin-bottom: 10px;" type="button" value="Create an Account"
+            onClick="location.href='register.html'">
 
     </form>
 </body>

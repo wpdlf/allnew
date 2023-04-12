@@ -3,17 +3,18 @@
 
 <head>
     <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="mystyle.css">
 </head>
 
 <body>
-    <h3>Register</h3>
+    <h2>Register</h2>
     <hr>
     <form action="/register" name="userForm" method="post">
-        <p>Userid : <input type="text" size="15" name="id"></p>
-        <p>Password : <input type="password" size="15" name="pw"></p>
+        <p>Userid : <input style="background-color: white;" type="text" size="15" name="id"></p>
+        <p>Password : <input style="background-color: white;" type="password" size="15" name="pw"></p>
 
-        <input type="submit" value="회원가입">&nbsp;&nbsp;
-        <input type="button" value="취소" onClick="location.href='register.html'">
+        <input style="margin-bottom: 10px;" type="submit" value="Sign up">&nbsp;&nbsp;
+        <input style="margin-bottom: 10px;" type="button" value="Clear" onClick="location.href='register.html'">
 
     </form>
 </body>

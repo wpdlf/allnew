@@ -1,0 +1,42 @@
+body {
+    background-color: rgb(16, 199, 122);
+}
+
+p {
+    color: green;
+    font-weight: 1000;
+}
+
+hr {
+    background-color: darkgreen;
+    height: 5px;
+    border: solid darkgreen;
+}
+
+form {
+    border: solid green;
+    border-radius: 5px;
+    width: 35%;
+    text-align: center;
+}
+
+button,
+input[type=button],
+input[type=submit],
+input[type=text],
+input[type=password] {
+    border-radius: 5px;
+    border: solid green;
+    background-color: greenyellow;
+    font-weight: 1000;
+    color: green;
+}
+
+h2 {
+    text-align: center;
+    color: green;
+}
+
+form {
+    margin: auto;
+}
