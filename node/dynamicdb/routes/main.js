@@ -25,7 +25,37 @@ app.get('/hello', (req, res) => {
 app.get("/select", (req, res) => {
     const result = connection.query("SELECT * FROM user");
     console.log(result);
-    res.send(result)
+    // res.send(result);
+    res.writeHead(200);
+    var template = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="table.css">
+        </head>
+        <body>
+            <table style="margin:auto; text-align:center;">
+                <thead>
+                    <tr><th>User ID</th><th>Password</th></tr>
+                </thead>
+                <tbody>
+                `;
+    for (var i = 0; i < result.length; i++) {
+        template += `
+        <tr>
+            <td>${result[i]['userid']}</td>
+            <td>${result[i]['passwd']}</td>
+        </tr>
+        `;
+    }
+    template += `
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `;
+    res.end(template);
 });
 
 // request 1, query 0
@@ -40,7 +70,57 @@ app.get("/selectQuery", (req, res) => {
     const userid = req.query.userid;
     const result = connection.query("select * from user where userid=?", [userid]);
     console.log(result);
-    res.send(result)
+    // res.send(result)
+    res.writeHead(200);
+    var template2 = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="table.css">
+        </head>
+        <body>
+            <span>데이터가 없습니다.</span>
+        </body>
+        </html>
+    `;
+    res.end(template2);
+
+    if (result.length == 0) {
+        res.send(template2);
+        // res.send("<span>데이터가 없습니다.</span>");
+    } else {
+        res.writeHead(200);
+        var template = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="table.css">
+        </head>
+        <body>
+            <table style="margin:auto; text-align:center;">
+                <thead>
+                    <tr><th>User ID</th><th>Password</th></tr>
+                </thead>
+                <tbody>
+                `;
+        for (var i = 0; i < result.length; i++) {
+            template += `
+        <tr>
+            <td>${result[i]['userid']}</td>
+            <td>${result[i]['passwd']}</td>
+        </tr>
+        `;
+        }
+        template += `
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `;
+        res.end(template);
+    }
 });
 
 // request 1, query 1

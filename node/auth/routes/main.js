@@ -24,8 +24,46 @@ app.get('/hello', (req, res) => {
 // request 0, query 0
 app.get("/select", (req, res) => {
     const result = connection.query("SELECT * FROM user");
-    console.log(JSON.stringify(result));
-    res.send(JSON.stringify({ result }))
+    console.log(result);
+    // res.send(result);
+    if (result.length == 0) {
+        res.send(
+            `<script>
+                alert('테이블이 비어있습니다. 데이터를 입력해주세요!');
+            </script>`
+        );
+    } else {
+        res.writeHead(200);
+        var template = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="table.css">
+        </head>
+        <body>
+            <table style="margin:auto; text-align:center;">
+                <thead>
+                    <tr><th>User ID</th><th>Password</th></tr>
+                </thead>
+                <tbody>
+                `;
+        for (var i = 0; i < result.length; i++) {
+            template += `
+        <tr>
+            <td>${result[i]['userid']}</td>
+            <td>${result[i]['passwd']}</td>
+        </tr>
+        `;
+        }
+        template += `
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `;
+        res.end(template);
+    }
 });
 
 // request 1, query 0
@@ -40,7 +78,66 @@ app.get("/selectQuery", (req, res) => {
     const id = req.query.userid;
     const result = connection.query("select * from user where userid=?", [id]);
     console.log(result);
-    res.send(result)
+    // res.send(result)
+
+    if (result.length == 0) {
+        res.writeHead(200);
+        var template2 = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="table.css">
+        </head>
+        <body>
+            <span>데이터가 없습니다!</span>
+            <span>데이터가 없습니다!</span>
+            <span>데이터가 없습니다!</span>
+            <span>데이터가 없습니다!</span>
+            <span>데이터가 없습니다!</span>
+            <span>데이터가 없습니다!</span>
+            <span>데이터가 없습니다!</span>
+            <span>데이터가 없습니다!</span>
+            <span>데이터가 없습니다!</span>
+            <span>데이터가 없습니다!</span>
+            <span>데이터가 없습니다!</span>
+            <span>데이터가 없습니다!</span>
+        </body>
+        </html>
+    `;
+        res.end(template2);
+    } else {
+        res.writeHead(200);
+        var template = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="table.css">
+        </head>
+        <body>
+            <table style="margin:auto; text-align:center;">
+                <thead>
+                    <tr><th>User ID</th><th>Password</th></tr>
+                </thead>
+                <tbody>
+                `;
+        for (var i = 0; i < result.length; i++) {
+            template += `
+        <tr>
+            <td>${result[i]['userid']}</td>
+            <td>${result[i]['passwd']}</td>
+        </tr>
+        `;
+        }
+        template += `
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `;
+        res.end(template);
+    }
 });
 
 // request 1, query 1
@@ -54,25 +151,70 @@ app.post("/selectQuery", (req, res) => {
 // request 1, query 1
 app.post("/insert", (req, res) => {
     const { id, pw } = req.body;
-    const result = connection.query("insert into user values (?, ?)", [id, pw]);
-    console.log(result);
-    res.redirect('/selectQuery?userid=' + req.body.id);
+    const result = connection.query("select * from user where userid=?", [id]);
+
+    if (id.length == 0 || pw.length == 0) {
+        res.send(
+            `<script>
+                alert('Userid와 Password 두가지 모두 입력해주세요!');
+            </script>`
+        );
+    } else {
+        if (result.length > 0) {
+            res.send(
+                `<script>
+                alert('중복된 Userid입니다. 다시 입력해주세요!');
+            </script>`
+            );
+        } else {
+            connection.query("insert into user values (?, ?)", [id, pw]);
+            res.redirect('/select');
+        }
+    }
 });
 
 // request 1, query 1
 app.post("/update", (req, res) => {
     const { id, pw } = req.body;
-    const result = connection.query("update user set passwd=? where userid=?", [pw, id]);
-    console.log(result);
-    res.redirect('/selectQuery?userid=' + req.body.id);
+    let result2 = connection.query("select * from user where userid=?", [id]);
+
+    if (result2.length == 0) {
+        res.send(
+            `<script>
+                alert('사용자를 찾을 수 없습니다. Userid를 확인해주세요!');
+            </script>`
+        );
+    }
+    else if (result2.length != 0) {
+        if (pw.length == 0) {
+            res.send(
+                `<script>
+                alert('Password를 입력해주세요!');
+                </script>`
+            );
+            res.redirect('admin_page.html');
+        }
+    } else {
+        connection.query("update user set passwd=? where userid=?", [pw, id]);
+        res.redirect('/selectQuery?userid=' + req.body.id);
+    }
 });
 
 // request 1, query 1
 app.post("/delete", (req, res) => {
     const id = req.body.id;
-    const result = connection.query("delete from user where userid=?", [id]);
-    console.log(result);
-    res.redirect('/select');
+    let result2 = connection.query("select * from user where userid=?", [id]);
+
+    if (result2.length == 0) {
+        res.send(
+            `<script>
+                alert('사용자를 찾을 수 없습니다. Userid를 확인해주세요!');
+            </script>`
+        );
+    } else {
+        connection.query("delete from user where userid=?", [id]);
+        res.redirect('/select');
+    }
 });
 
 
@@ -103,6 +245,11 @@ app.post("/register", (req, res) => {
     const { id, pw } = req.body;
 
     if (id.length == 0 || pw.length == 0) {
+        res.send(
+            `<script>
+                alert('Userid와 Password 두가지 모두 입력해주세요!');
+            </script>`
+        );
         res.redirect('register.html');
     } else {
         let result = connection.query("select * from user where userid=?", [id]);
