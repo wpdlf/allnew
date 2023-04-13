@@ -2,28 +2,22 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="mystyle.css">
 </head>
 
 <body>
-    <h2>Login</h2>
-    <hr>
-    <div class="box">
-        <form action="/login" name="userForm" method="post">
-            <p>Userid <input style="background-color: rgb(226, 247, 196); margin-left: 20px;" type="text" size="15"
-                    name="id">
-            </p>
-            <p>Password <input style="background-color: rgb(226, 247, 196);" type="password" size="15" name="pw"></p>
-
-            <input type="submit" value="Sign in">&nbsp;&nbsp;
-            <input type="button" value="Clear" onClick="location.href='index.html'"><br><br>
-
-            <input style="margin-bottom: 10px;" type="button" value="Create an Account"
-                onClick="location.href='register.html'">
-
-        </form>
-    </div>
+    <nav id="menubar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="https://github.com/wpdlf?tab=repositories">About Me</a></li>
+            <li style="float: right;"><a href="login.html">Login</a></li>
+            <!-- <li><a href="index.html">Logout</a></li> -->
+        </ul>
+    </nav>
+    <!-- <div style="width: 100%; margin-top: 40px;">
+        <iframe style="width: 300px;" name="targetURL" src="/select">
+    </div> -->
 </body>
 
 </html>

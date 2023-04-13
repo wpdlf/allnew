@@ -18,43 +18,43 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/hello', (req, res) => {
-    res.send('Helllo World~!!')
+    res.send('관리자 페이지입니다.')
 });
 
 // request 0, query 0
 app.get("/select", (req, res) => {
     const result = connection.query("SELECT * FROM user");
-    console.log(result);
-    res.send(result)
+    console.log(JSON.stringify(result));
+    res.send(JSON.stringify({ result }))
 });
 
 // request 1, query 0
 app.post("/select", (req, res) => {
     const result = connection.query("select * from user");
-    console.log(result);
-    res.send(result)
+    console.log(JSON.stringify(result));
+    res.send(JSON.stringify({ result }))
 });
 
 // request 1, query 1
 app.get("/selectQuery", (req, res) => {
-    const userid = req.query.userid;
-    const result = connection.query("select * from user where userid=?", [userid]);
+    const id = req.query.userid;
+    const result = connection.query("select * from user where userid=?", [id]);
     console.log(result);
     res.send(result)
 });
 
 // request 1, query 1
 app.post("/selectQuery", (req, res) => {
-    const userid = req.body.userid;
-    const result = connection.query("select * from user where userid=?", [userid]);
+    const id = req.body.userid;
+    const result = connection.query("select * from user where userid=?", [id]);
     console.log(result);
     res.send(result)
 });
 
 // request 1, query 1
 app.post("/insert", (req, res) => {
-    const { id, name, gender, age, loc } = req.body;
-    const result = connection.query("insert into users values (?, ?, ?, ?, ?)", [id, name, gender, age, loc]);
+    const { id, pw } = req.body;
+    const result = connection.query("insert into user values (?, ?)", [id, pw]);
     console.log(result);
     res.redirect('/selectQuery?userid=' + req.body.id);
 });
@@ -101,8 +101,44 @@ app.post("/login", (req, res) => {
 
 app.post("/register", (req, res) => {
     const { id, pw } = req.body;
-    const result = connection.query("insert into user values (?, ?)", [id, pw]);
-    res.redirect('index.html');
+
+    if (id.length == 0 || pw.length == 0) {
+        res.redirect('register.html');
+    } else {
+        let result = connection.query("select * from user where userid=?", [id]);
+        console.log(result);
+        if (result.length > 0) {
+            res.writeHead(200);
+            var template = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Error</title>
+                <meta charset="utf-8">
+                <link type="text/css" rel="stylesheet" href="mystyle.css">
+            </head>
+            <body>
+                <nav id="menubar">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">About Me</a></li>
+                        <li style="float: right;"><a href="login.html">Login</a></li>
+                    </ul>
+                </nav>
+                <h2>Register Failed</h2>
+                <hr><br><br>
+                <div id="input_TryAg">
+                    <input style="width: 100px; height: 50px;" type="button" value="Try Again" onClick="location.href='register.html'">
+                </div>
+            </body>
+            </html>
+            `;
+            res.end(template);
+        } else {
+            connection.query("insert into user values (?, ?)", [id, pw]);
+            res.redirect('login.html');
+        }
+    }
 });
 
 module.exports = app;

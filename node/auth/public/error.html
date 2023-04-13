@@ -3,13 +3,19 @@
 
 <head>
     <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="mystyle.css">
 </head>
 
-<body>
-    <h3>Login Failed</h3><br><br>
-    <h3>로그인에 실패했습니다.</h3><br><br>
+<body style="background-image: url(border.png);">
+    <h3>Login Failed</h3>
+    <hr>
+    <div id="error_img">
+        <img src="error.jpg">
+    </div>
 
-    <a href="index.html">다시 시도하기</a>
+    <div id="input_TryAg">
+        <input style="width: 100px; height: 50px;" type="button" value="Try Again" onClick="location.href='index.html'">
+    </div>
 
 </body>
 

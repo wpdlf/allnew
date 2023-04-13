@@ -7,15 +7,19 @@
 </head>
 
 <body>
-    <h2>사용자 정보 입력</h2>
+    <nav id="menubar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">About Me</a></li>
+            <li style="float: right;"><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+    <h2>Input User Information</h2>
     <hr>
     <div style="border: 0; float: left; width: 50%; margin-top: 40px;">
         <form id="admin_form" action="/insert" name="userForm" method="post" target="targetURL">
             <p>Userid <input style="margin-left: 30px;" type="text" size="15" name="id"></p>
-            <p>UserName <input type="text" size="15" name="name"></p>
-            <p>Gender <input style="width: 151px; margin-left: 25px;" type="text" size="10" name="gender"></p>
-            <p>Age <input style="width: 151px; margin-left: 50px;" type="text" size="5" name="age"></p>
-            <p>Location <input style="width: 151px; margin-left: 15px;" type="text" size="15" name="loc"></p><br>
+            <p>Password <input style="margin-left: 10px;" type="text" size="15" name="pw"></p>
 
             <input type="button" value="get select" onclick='document.targetURL.location.href="/select"'>&nbsp;&nbsp;
 
@@ -31,7 +35,7 @@
     </div>
 
     <div style="border: 0; float: left; width: 50%; margin-top: 40px;">
-        <iframe name="targetURL" src="/hello">
+        <iframe style="margin-left: 200px;" name="targetURL" src="/hello">
     </div>
 </body>
 
