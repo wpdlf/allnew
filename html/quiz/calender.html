@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h3>Calendar</h3>
+    <hr>
+    <div id="calendar"></div>
+    <script>
+        let input = prompt("원하는 년도와 달을 입력하세요.(예 : 202304)", 202304);
+        const input_year = input.substr(0, 4);
+        const input_month = input.substr(4, 2);
+
+        var calendarWeekCount = Math.ceil((calendarMonthStartDay + calendarMonthLastDate) / 7);
+        var date = new Date();
+
+        // 달력 월의 마지막 일
+        var calendarMonthLastDate = new Date(input_year, input_month, 0).getDate();
+
+        // 달력 월의 시작 일
+        var calendarMonthStartDay = new Date(input_year + "-" + input_month).getDay();
+
+        // 주 카운트
+        var calendarWeekCount = Math.ceil((calendarMonthStartDay + calendarMonthLastDate) / 7);
+
+        var cal_view = `<table style="border: 1px solid;">
+                        <caption style="font-size: larger; font-weight: bolder; text-align: left; padding: 10px 20px;">` + (input_month % 10) + `월</caption>
+                        <thead>
+                            <tr style="border: 1px solid;">
+                                <th>일</th>
+                                <th>월</th>
+                                <th>화</th>
+                                <th>수</th>
+                                <th>목</th>
+                                <th>금</th>
+                                <th>토</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+        // 위치
+        var calendarPos = 0;
+        // 날짜
+        var calendarDay = 0;
+        for (var i = 0; i < calendarWeekCount; i++) {
+            cal_view += "<tr>";
+            for (var j = 0; j < 7; j++) {
+                cal_view += "<td style=\"padding: 10px 10px; text-align: center; border: 1px solid;\">";
+                if (calendarMonthStartDay <= calendarPos && calendarDay < calendarMonthLastDate) {
+                    calendarDay++;
+                    cal_view += "<span style=\"display: block; padding: 10px 10px;\">" + calendarDay + "</span>";
+                }
+                cal_view += "</td>";
+                calendarPos++;
+            }
+            cal_view += "</tr>";
+        }
+        cal_view += "</tbody>";
+        cal_view += "</table>";
+        document.getElementById("calendar").innerHTML = cal_view;
+    </script>
+</body>
+
+</html>

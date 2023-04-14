@@ -17,6 +17,47 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+function show_table(result, res) {
+    res.writeHead(200);
+    var template = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="table.css">
+        </head>
+        <body>
+            <table style="margin:auto; text-align:center;">
+                <thead>
+                    <tr><th>User ID</th><th>Password</th></tr>
+                </thead>
+                <tbody>
+                `;
+    for (var i = 0; i < result.length; i++) {
+        template += `
+        <tr>
+            <td>${result[i]['userid']}</td>
+            <td>${result[i]['passwd']}</td>
+        </tr>
+        `;
+    }
+    template += `
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `;
+    res.end(template);
+}
+
+function cantfind_id(res) {
+    res.send(
+        `<script>
+                alert('사용자를 찾을 수 없습니다. Userid를 확인해주세요!');
+            </script>`
+    );
+}
+
 app.get('/hello', (req, res) => {
     res.send('관리자 페이지입니다.')
 });
@@ -33,36 +74,7 @@ app.get("/select", (req, res) => {
             </script>`
         );
     } else {
-        res.writeHead(200);
-        var template = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <link type="text/css" rel="stylesheet" href="table.css">
-        </head>
-        <body>
-            <table style="margin:auto; text-align:center;">
-                <thead>
-                    <tr><th>User ID</th><th>Password</th></tr>
-                </thead>
-                <tbody>
-                `;
-        for (var i = 0; i < result.length; i++) {
-            template += `
-        <tr>
-            <td>${result[i]['userid']}</td>
-            <td>${result[i]['passwd']}</td>
-        </tr>
-        `;
-        }
-        template += `
-                </tbody>
-            </table>
-        </body>
-        </html>
-    `;
-        res.end(template);
+        show_table(result, res);
     }
 });
 
@@ -107,36 +119,7 @@ app.get("/selectQuery", (req, res) => {
     `;
         res.end(template2);
     } else {
-        res.writeHead(200);
-        var template = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <link type="text/css" rel="stylesheet" href="table.css">
-        </head>
-        <body>
-            <table style="margin:auto; text-align:center;">
-                <thead>
-                    <tr><th>User ID</th><th>Password</th></tr>
-                </thead>
-                <tbody>
-                `;
-        for (var i = 0; i < result.length; i++) {
-            template += `
-        <tr>
-            <td>${result[i]['userid']}</td>
-            <td>${result[i]['passwd']}</td>
-        </tr>
-        `;
-        }
-        template += `
-                </tbody>
-            </table>
-        </body>
-        </html>
-    `;
-        res.end(template);
+        show_table(result, res);
     }
 });
 
@@ -179,17 +162,13 @@ app.post("/update", (req, res) => {
     let result2 = connection.query("select * from user where userid=?", [id]);
 
     if (result2.length == 0) {
-        res.send(
-            `<script>
-                alert('사용자를 찾을 수 없습니다. Userid를 확인해주세요!');
-            </script>`
-        );
+        cantfind_id(res);
     }
     else if (result2.length != 0) {
         if (pw.length == 0) {
             res.send(
                 `<script>
-                alert('Password를 입력해주세요!');
+                    alert('Password를 입력해주세요!');
                 </script>`
             );
             res.redirect('admin_page.html');
@@ -206,20 +185,16 @@ app.post("/delete", (req, res) => {
     let result2 = connection.query("select * from user where userid=?", [id]);
 
     if (result2.length == 0) {
-        res.send(
-            `<script>
-                alert('사용자를 찾을 수 없습니다. Userid를 확인해주세요!');
-            </script>`
-        );
+        cantfind_id(res);
     } else {
         connection.query("delete from user where userid=?", [id]);
-        res.redirect('/select');
+        res.send(
+            `<script>
+                alert('계정이 삭제 되었습니다!');
+            </script>`
+        );
     }
 });
-
-
-
-
 
 app.post("/login", (req, res) => {
     const { id, pw } = req.body;
@@ -287,5 +262,4 @@ app.post("/register", (req, res) => {
         }
     }
 });
-
 module.exports = app;
