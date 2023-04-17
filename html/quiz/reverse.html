@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h2>랜덤 배열 생성 후 뒤집어 출력</h2>
+    <hr>
+    <script>
+        var numbers = new Array(5);
+
+        document.write("생성된 배열 : ");
+        for (var i = 0; i < 5; i++) {
+            numbers[i] = Math.floor(Math.random() * 100 + 1);
+            document.writeln(numbers[i]);
+        }
+        for (var i = 0, j = numbers.length - 1; i < j; i++, j--) {
+            temp = numbers[i];
+            numbers[i] = numbers[j];
+            numbers[j] = temp;
+        }
+        document.write("<br>" + "뒤집힌 배열 : ");
+        for (var i = 0; i < 5; i++) {
+            document.writeln(numbers[i]);
+        }
+    </script>
+</body>
+
+</html>
