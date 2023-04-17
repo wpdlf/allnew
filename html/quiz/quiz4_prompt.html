@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h2>Quiz4</h2>
+    <hr>
+    <script>
+        var numbers = new Array();
+        var sum = 0;
+        var i = 0;
+
+        while (sum <= 30) {
+            var num = Number(prompt("1 ~ 10 사이의 숫자를 입력해주세요."));
+            if (num < 1 || num > 10) {
+                continue;
+            } else {
+                numbers[i] = num;
+                sum += num;
+                i++;
+            }
+        }
+        document.write("생성된 배열의 크기 : " + numbers.length + "<br>");
+        document.write("입력된 배열 : " + numbers + "<br>");
+        document.write("합산 값 : " + sum + "<br>");
+        document.write("인덱스 : numbers[" + (i - 1) + "]");
+    </script>
+</body>
+
+</html>
