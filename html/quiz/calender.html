@@ -5,8 +5,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
         th {
-            border: 1px solid;
             background-color: greenyellow;
+        }
+
+        th#sat {
+            color: blue;
+        }
+
+        th#sun {
+            color: red;
         }
     </style>
 </head>
@@ -26,24 +33,37 @@
         // 달력 월의 마지막 일
         var calendarMonthLastDate = new Date(input_year, input_month, 0).getDate();
 
-        // 달력 월의 시작 일
+        // 달력 월의 시작 요일
         var calendarMonthStartDay = new Date(input_year + "-" + input_month).getDay();
 
         // 주 카운트
         var calendarWeekCount = Math.ceil((calendarMonthStartDay + calendarMonthLastDate) / 7);
 
+        let days = new Array("일", "월", "화", "수", "목", "금", "토");
+
         var cal_view = `<table style="border: 1px solid;">
-                        <caption style="font-size: larger; font-weight: bolder; text-align: left; padding: 10px 20px;">` + (input_month % 10) + `월</caption>
+                        <caption style="font-size: larger; font-weight: bolder; text-align: left; padding: 10px 20px;">` + input_year + `년 ` + input_month + `월</caption>
                         <thead>
-                            <tr style="border: 1px solid;">
-                                <th>일</th>
-                                <th>월</th>
-                                <th>화</th>
-                                <th>수</th>
-                                <th>목</th>
-                                <th>금</th>
-                                <th>토</th>
-                            </tr>
+                            <tr style="border: 1px solid;">`
+        // <th id="sun">일</th>
+        for (var i = 0; i < days.length; i++) {
+            if (days[i] == "일") {
+                cal_view += `<th id="sun">${days[i]}</th>`;
+            }
+            else if (days[i] == "토") {
+                cal_view += `<th id="sat">${days[i]}</th>`;
+            } else {
+                cal_view += `<th>${days[i]}</th>`;
+            }
+        }
+        // <th>월</th>
+        // <th>화</th>
+        // <th>수</th>
+        // <th>목</th>
+        // <th>금</th>
+        //<th id="sat">토</th>
+        cal_view +=
+            `</tr>
                         </thead>
                         <tbody>`;
         // 위치
