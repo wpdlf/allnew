@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>프로토타입으로 객체 만들기</title>
+    <script>
+
+        function Car(brend, grade, maxFuel, displacement, price, refueling_amount) {
+            // 프로퍼티 생성
+            this.brend = brend;
+            this.grade = grade;
+            this.maxFuel = maxFuel;
+            this.displacement = displacement;
+            this.price = price;
+            this.balFuel = maxFuel; // 연료 잔여량
+            this.usedFuel = 0; // 연료 소비량
+            this.starting = "";
+            this.destination = "";
+            this.dist = 0;
+
+            // 매소드 생성
+            this.drive = function (from, to, distance) {
+                this.starting = from;
+                this.destination = to;
+                this.dist = distance;
+                document.write(
+                    "주행 차량 : " +
+                    this.brend + "<br>" +
+                    "출발지 : " +
+                    this.starting + "<br>" +
+                    "도착지 : " +
+                    this.destination + "<br>" +
+                    "현재 주행거리 : " +
+                    this.dist + "km<hr>"
+                );
+            };
+
+            this.ckfuel = function (max, amount) {
+                this.maxFuel = max;
+                this.usedFuel = amount;
+                this.balFuel -= amount;
+                if (this.balFuel < (this.maxFuel / 3)) {
+                    document.write("@@@현재 연료 잔여량이 1/3 미만입니다. 주유가 필요합니다!@@@<br><br>");
+                }
+                document.write(
+                    "추행 차량 : " +
+                    this.brend + "<br>" +
+                    "최대 주유량 : " +
+                    this.maxFuel + "<br>" +
+                    "현재 연료 소비량 : " +
+                    this.usedFuel + "<br>" +
+                    "연료 잔여량 : " +
+                    this.balFuel +
+                    "&nbsp&nbsp<button onclick='refuel_prompt()'>Refueling</button><hr>"
+                );
+            };
+
+            this.refueling = function (fuel) {
+                let refueling_amount = Number(prompt("주유할 연료량을 입력하세요."));
+                this.balFuel += refueling_amount;
+                if (this.balFuel == this.maxFuel) {
+                    document.write("주유량 : " + refueling_amount + "L<br>" + "연료가 가득찼습니다!!<hr>");
+                } else {
+                    document.write(
+                        refueling_amount + "L 주유하여 잔여 연료량은 " +
+                        this.balFuel + "L 입니다.<hr>"
+                    );
+                }
+            };
+
+            this.info = function (brend, grade, maxFuel, displacement, price) {
+                document.write("< Car Info > <br>");
+                document.write("브랜드 : " + this.brend + "<br>");
+                document.write("유형 : " + this.grade + "<br>");
+                document.write("최대 연료량 : " + this.maxFuel + "<br>");
+                document.write("배기량 : " + this.displacement + "<br>");
+                document.write("가격 : " + this.price + "만원 <br><hr>");
+            };
+        }
+    </script>
+</head>
+
+<body>
+    <h3>리터럴 표기법으로 객체 만들기</h3>
+    <hr>
+    <script>
+        // new 연산자로 객체 생성
+        let fir_car = new Car("Mercedes Benz", "suv", 900, 4000, 20000);
+        fir_car.info();
+        fir_car.drive("서울", "부산", 350);
+        fir_car.ckfuel(900, 700);
+        if (this.balFuel < this.maxFuel) {
+            fir_car.refueling();
+        }
+
+        let sec_car = new Car("BMW", "sedan", 500, 2500, 10000);
+        sec_car.info();
+        sec_car.drive("서울", "대전", 300);
+        sec_car.ckfuel(500, 200);
+        sec_car.refueling();
+
+
+    </script>
+</body>
+
+</html>

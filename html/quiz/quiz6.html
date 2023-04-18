@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h3>현재 까지 흐른시간</h3>
+    <hr>
+    <script>
+        let now = new Date();
+        var mon = (now.getMonth() + 1) - 3;
+        var date = now.getDate() - 6;
+        var hour = now.getHours() - 9;
+        var min = now.getMinutes();
+        var sec = now.getSeconds();
+        let oldTime = new Date(2023, 2, 6, 9, 0, 0);
+
+        // document.write(now.getFullYear() + "년도<br>");
+        document.write("교육 시작한 후로... ");
+        document.write((now.getMonth() + 1) - 3 + "개월&nbsp;");
+        document.write((now.getDate() - 6) + "일&nbsp;");
+        document.write((now.getHours() - 9) + "시간&nbsp;");
+        document.write(now.getMinutes() + "분&nbsp;");
+        document.write(now.getSeconds() + "초 밖에 안지났습니다....<hr>");
+        // document.write(now.getMilliseconds()
+        //     + "밀리초<br><hr>");
+
+        // 일
+        document.write("일로는 " + Math.round((mon * 31) + date + (hour / 24) + (min / 60 / 24) + (sec / (3600) / 24)) + "일 지났습니다.");
+
+        // 시
+        document.write("<br>시간으로는 " + Math.round((mon * 31 * 24) + (date * 24) + hour + (min / 60) + (sec / (3600))) + "시간 지났습니다.");
+
+        // 분
+        document.write("<br>분으로는 " + Math.round((mon * 31 * 24 * 60) + (date * 24 * 60) + hour + min + (sec / 60)) + "분 지났습니다.");
+
+        // 초
+        document.write("<br>초으로는 " + ((now - oldTime) / 1000) + "초 지났습니다.<hr>");
+    </script>
+</body>
+
+</html>
