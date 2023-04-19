@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>앞뒤가 똑같은</title>
+    <script>
+        function checkText() {
+            let inputText = document.getElementById('keli').value;
+            let inputType = document.getElementsByName('type');
+            let view = document.getElementById('view');
+
+            if (inputText.length == 0) {
+                view.innerHTML = "아무것도 입력안됨. 다시.";
+                return;
+            } else {
+                if (inputType[0].checked == true && inputText * 0 != 0) {
+                    if (inputText[0] == inputText[2]) {
+                        view.innerHTML = "시작과 끝이 같은 문자입니다!!";
+                    } else {
+                        view.innerHTML = "다시.";
+                    }
+                }
+                else if (inputType[0].checked == true && inputText * 0 == 0) {
+                    view.innerHTML = "문자가 아닌데...?? 다시.";
+                }
+                else if (inputType[1].checked == true && inputText * 0 == 0) {
+                    if (inputText[0] == inputText[2]) {
+                        view.innerHTML = "시작과 끝이 같은 숫자입니다!!";
+                        return;
+                    } else {
+                        view.innerHTML = "다시.";
+                    }
+                }
+                else if (inputType[1].checked == true && inputText * 0 != 0) {
+                    view.innerHTML = "숫자가 아닌데...?? 다시.";
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h3>앞뒤가 똑같은가??</h3>
+    <hr>
+    <form>
+        <input type="text" id="keli" maxlength="3">
+        <input type="button" value="Check" onclick="checkText()"><br>
+        <input type="radio" name="type" value="1">문자
+        <input type="radio" name="type" value="2">숫자
+    </form>
+    <hr>
+
+    <div id="view"></div>
+</body>
+
+</html>

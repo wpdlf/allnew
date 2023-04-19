@@ -50,7 +50,7 @@ tbody tr:hover {
 }
 
 span {
-    font-size: 130px;
+    font-size: 30px;
     animation-name: textColorAnimation;
     animation-duration: 1s;
     animation-iteration-count: infinite;

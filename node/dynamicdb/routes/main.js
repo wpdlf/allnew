@@ -67,12 +67,14 @@ app.post("/select", (req, res) => {
 
 // request 1, query 1
 app.get("/selectQuery", (req, res) => {
-    const userid = req.query.userid;
-    const result = connection.query("select * from user where userid=?", [userid]);
+    const id = req.query.userid;
+    const result = connection.query("select * from user where userid=?", [id]);
     console.log(result);
     // res.send(result)
-    res.writeHead(200);
-    var template2 = `
+
+    if (result.length == 0) {
+        res.writeHead(200);
+        var template2 = `
         <!DOCTYPE html>
         <html>
         <head>
@@ -80,15 +82,11 @@ app.get("/selectQuery", (req, res) => {
             <link type="text/css" rel="stylesheet" href="table.css">
         </head>
         <body>
-            <span>데이터가 없습니다.</span>
+            <span>데이터가 없습니다!</span>
         </body>
         </html>
     `;
-    res.end(template2);
-
-    if (result.length == 0) {
-        res.send(template2);
-        // res.send("<span>데이터가 없습니다.</span>");
+        res.end(template2);
     } else {
         res.writeHead(200);
         var template = `
@@ -125,8 +123,8 @@ app.get("/selectQuery", (req, res) => {
 
 // request 1, query 1
 app.post("/selectQuery", (req, res) => {
-    const userid = req.body.userid;
-    const result = connection.query("select * from user where userid=?", [userid]);
+    const id = req.body.id;
+    const result = connection.query("select * from user where userid=?", [id]);
     console.log(result);
     res.send(result)
 });
