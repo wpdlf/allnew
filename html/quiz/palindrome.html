@@ -6,7 +6,7 @@
     <title>앞뒤가 똑같은</title>
     <script>
         function checkText() {
-            let inputText = document.getElementById('keli').value;
+            let inputText = document.getElementById('input').value;
             let inputType = document.getElementsByName('type');
             let view = document.getElementById('view');
 
@@ -44,14 +44,14 @@
     <h3>앞뒤가 똑같은가??</h3>
     <hr>
     <form>
-        <input type="text" id="keli" maxlength="3">
+        <input type="text" id="input" maxlength="3">
         <input type="button" value="Check" onclick="checkText()"><br>
         <input type="radio" name="type" value="1">문자
         <input type="radio" name="type" value="2">숫자
     </form>
     <hr>
 
-    <div id="view"></div>
+    <span id="view"></span>
 </body>
 
 </html>

@@ -4,6 +4,14 @@
 <head>
     <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="mystyle.css">
+    <script>
+        history.replaceState(null, null, '?id=admin');
+
+        function logout() {
+            sessionStorage.removeItem(sessionStorage.key(sessionStorage.key.length - 1));
+            alert("세션스토리지에 로그인 정보 삭제.");
+        }
+    </script>
 </head>
 
 <body>
@@ -11,7 +19,7 @@
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="#">About Me</a></li>
-            <li style="float: right;"><a href="index.html">Logout</a></li>
+            <li style="float: right;"><a href="index.html" onclick="logout()">Logout</a></li>
         </ul>
     </nav>
     <h2>Input User Information</h2>
