@@ -199,20 +199,21 @@ app.post("/delete", (req, res) => {
 app.post("/login", (req, res) => {
     const { id, pw } = req.body;
     const result = connection.query("select * from user where userid=? and passwd=?", [id, pw]);
+
     if (result.length == 0) {
         res.redirect('error.html');
     }
     else {
         if (id == 'admin') {
-            res.redirect('admin_page.html');
-            return console.log(id + " 사용자로 로그인했습니다.");
+            console.log(id + " => Administrator Logined")
+            res.redirect('admin_page.html?id=' + id);
         }
         else if (id == 'root') {
+            console.log(id + " => Root Logined")
             res.redirect('member.html');
-            return console.log(id + " 사용자로 로그인했습니다.");
         }
-        res.redirect('main.html');
-        return console.log(id + " 사용자로 로그인했습니다.");
+        console.log(id + " => User Logined")
+        res.redirect('main.html?id=' + id)
     }
 });
 

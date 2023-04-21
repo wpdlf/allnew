@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h3>Prime Number</h3>
+    <hr>
+    <input id="num" type="text">
+    <button type="button" id="check" onclick="send()">check</button>
+    <hr>
+
+    <div><span id="result"></span></div>
+
+    <script>
+        let addWorker = new Worker("prime.js");
+
+        function send() {
+            let param = {
+                num: document.getElementById("num").value
+            };
+            addWorker.postMessage(param);
+        }
+
+        addWorker.onmessage = function (e) {
+            document.getElementById("result").innerHTML = e.data;
+        };
+    </script>
+</body>
+
+</html>

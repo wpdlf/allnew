@@ -4,20 +4,6 @@
 <head>
     <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="mystyle.css">
-    <script>
-        function store() {
-            let id = document.getElementById("usr_id");
-            //let pw = document.getElementById("usr_pw");
-            let when = new Date();
-
-            // if (!window.sessionStorage) {
-            //     alert("로컬스토리지를 지원하지 않습니다.");
-            //     return;
-            // }
-            sessionStorage.setItem(id.value, when);
-            alert("세션스토리지에 로그인 정보 저장.");
-        }
-    </script>
 </head>
 
 <body>
@@ -32,10 +18,10 @@
     <div class="box">
         <form action="/login" name="userForm" method="post">
             <p>Userid <input style="background-color: rgb(226, 247, 196); margin-left: 20px;" type="text" size="15"
-                    name="id" id="usr_id">
+                    name="id" id="usid">
             </p>
             <p>Password <input style="background-color: rgb(226, 247, 196);" type="password" size="15" name="pw"
-                    id="usr_pw"></p>
+                    id="uspw"></p>
 
             <input type="submit" value="Sign in" onclick="store()">&nbsp;&nbsp;
             <input type="button" value="Go back" onClick="location.href='index.html'"><br><br>

@@ -4,9 +4,54 @@
 <head>
     <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="mystyle.css">
+    <script>
+        let id = getParameter("id");
+        let now = new Date();
+
+        function getParameter(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null
+                ? ""
+                : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+        function sessionStore() {
+            if (!window.sessionStorage) {
+                alert("세션 스토리지를 지원하지 않습니다.");
+                return;
+            } else {
+                if (id == "") {
+                    location.href = "index.html";
+                    sessionStorage.removeItem("");
+                    alert("잘못된 접근 방식입니다!!");
+                } else {
+                    for (var i = 0; i < sessionStorage.key.length; i++) {
+                        if (id == sessionStorage.key(i)) {
+                            sessionStorage.setItem(id, now);
+                            return;
+                        }
+                        sessionStorage.setItem(id, now);
+                        alert(`사용자 ${id} 님이 로그인 하셨습니다.`);
+                    }
+                }
+            }
+        }
+
+        window.addEventListener("beforeunload", (event) => {
+            event.preventDefault();
+            event.returnValue = "";
+        });
+
+        function logout() {
+            //sessionStorage.removeItem(sessionStorage.key(sessionStorage.key.length - 1));
+            sessionStorage.removeItem(id);
+        }
+    </script>
 </head>
 
-<body>
+<body onload="sessionStore()" onunload="logout()">
     <nav id="menubar">
         <ul>
             <li><a href="index.html">Home</a></li>
