@@ -12,6 +12,5 @@ onmessage = function (e) {
             }
         }
     }
-
     postMessage(result);
 }
