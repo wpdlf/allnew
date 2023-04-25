@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="mystyle.css">
+</head>
+
+<body>
+    <nav id="menubar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">About Me</a></li>
+            <li style="float: right;"><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+    <h2>Input New Clothes</h2>
+    <hr>
+    <div style="border: 0; float: left; width: 50%; margin-top: 40px;">
+        <form id="admin_form" action="/insert_cloth" name="userForm" method="post" target="targetURL">
+            <p>Cloth ID <input style="margin-left: 30px;" type="text" size="15" name="id"></p>
+            <p>Name <input style="margin-left: 10px;" type="text" size="15" name="name"></p>
+            <p>Category <input style="margin-left: 10px;" type="text" size="15" name="category"></p>
+            <p>temp_min <input style="margin-left: 10px;" type="text" size="15" name="temp_min"></p>
+            <p>temp_max <input style="margin-left: 10px;" type="text" size="15" name="temp_max"></p>
+
+            <!-- <input type="button" value="get select" onclick='document.targetURL.location.href="/select"'>&nbsp;&nbsp;
+
+            <input type="button" value="get selectQuery"
+                onclick='document.targetURL.location.href="/selectQuery?userid="+document.userForm.id.value'>&nbsp;&nbsp; -->
+
+            <input type="submit" value="post insert"><br><br>
+
+            <!-- <button style="margin-bottom: 10px;" type="submit" formaction="/update">post update</button>&nbsp;&nbsp;
+
+            <button style="margin-bottom: 10px;" type="submit" formaction="/delete">post delete</button>&nbsp;&nbsp; -->
+            <input style="margin-bottom: 10px;" type="reset" value="reset text">
+        </form>
+    </div>
+
+    <div style="border: 0; float: left; width: 50%; margin-top: 40px;">
+        <iframe style="margin-left: 200px;" name="targetURL" src="/select">
+    </div>
+</body>
+
+</html>

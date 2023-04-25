@@ -1,6 +1,6 @@
 body {
     /* background-color: rgb(16, 199, 122); */
-    background-color: rgb(226, 247, 196);
+    /* background-color: rgb(226, 247, 196); */
 }
 
 p {
@@ -28,7 +28,7 @@ form#admin_form {
     border-radius: 10px;
     text-align: center;
     background-color: rgb(223, 255, 216);
-    height: 200px;
+    height: 600px;
     width: 500px;
     margin-left: 300px;
 }
@@ -37,7 +37,7 @@ iframe {
     border: solid green;
     border-radius: 10px;
     height: 500px;
-    width: 300px;
+    width: 600px;
     background-color: rgb(223, 255, 216);
     margin-left: 65px;
 }

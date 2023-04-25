@@ -4,18 +4,25 @@
 <head>
     <meta charset="utf-8">
     <title>여러개 마커 표시하기</title>
-
+    <link type="text/css" rel="stylesheet" href="mystyle.css">
 </head>
 
 <body>
-    <div id="map" style="width:50%;height:600px;"></div>
+    <nav id="menubar">
+        <ul>
+            <li><a href="">현재 날짜</a></li>
+            <li><a href=""></a></li>
+            <li style="float: right;"><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+    <div id="map" style="width:500px; height:600px; margin-top: 30px;"></div>
 
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6c55efbdf9d38223f8ee2c7360dc0512"></script>
     <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
             mapOption = {
-                center: new kakao.maps.LatLng(35.8714354, 128.601445), // 지도의 중심좌표
+                center: new kakao.maps.LatLng(35.416357, 127.3904877), // 지도의 중심좌표
                 level: 13 // 지도의 확대 레벨
             };
 
@@ -64,10 +71,7 @@
         // 마커 이미지의 이미지 주소입니다
         var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
-        //for (var i = 0; i < positions.length; i++) {
-
-        positions.forEach(function (position) {
-            document.write(position + "<br>")
+        for (var i = 0; i < positions.length; i++) {
 
             // 마커 이미지의 이미지 크기 입니다
             var imageSize = new kakao.maps.Size(24, 35);
@@ -98,8 +102,7 @@
                 // 마커 위에 인포윈도우를 표시합니다
                 infowindow.open(map, marker);
             });
-        })
-        //}
+        }
     </script>
     <span id="show"></span>
 </body>
