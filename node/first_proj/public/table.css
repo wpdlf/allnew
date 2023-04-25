@@ -1,0 +1,58 @@
+table {
+    /* 이중 테두리 제거 */
+    border: 1px solid green;
+    border-collapse: collapse;
+}
+
+td,
+th {
+    /* 모든 셀에 적용 */
+    border: 1px solid green;
+    padding: 5px;
+    height: 15px;
+    width: 100px;
+    text-align: center;
+}
+
+thead,
+tfoot {
+    /* <thead>의 모든 셀에 적용 */
+    background: rgb(58, 211, 58);
+    color: darkgreen;
+}
+
+tbody tr:nth-child(even) {
+    /* 짝수 <tr>에 적용*/
+    background: rgb(223, 255, 216);
+}
+
+tbody tr:hover {
+    background: yellowgreen;
+}
+
+
+@keyframes textColorAnimation {
+    0% {
+        color: rgb(0, 217, 255);
+    }
+
+    30% {
+        color: rgb(255, 0, 0);
+    }
+
+    60% {
+        color: rgb(238, 255, 4);
+    }
+
+    100% {
+        color: rgb(247, 0, 255);
+    }
+}
+
+span {
+    font-size: 30px;
+    animation-name: textColorAnimation;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    vertical-align: middle;
+}

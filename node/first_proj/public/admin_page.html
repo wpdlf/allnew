@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="mystyle.css">
+    <script>
+        let id = getParameter("id");
+        let now = new Date();
+
+        function getParameter(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results === null
+                ? ""
+                : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+        function sessionStore() {
+            if (!window.sessionStorage) {
+                alert("세션 스토리지를 지원하지 않습니다.");
+                return;
+            } else {
+                if (id == "") {
+                    sessionStorage.removeItem("");
+                    alert("잘못된 접근 방식입니다!!");
+                    location.href = "login.html";
+                } else {
+                    for (var i = 0; i < sessionStorage.key.length; i++) {
+                        if (id == sessionStorage.key(i)) {
+                            sessionStorage.setItem(id, now);
+                            return;
+                        }
+                        sessionStorage.setItem(id, now);
+                        alert(`사용자 ${id} 님이 로그인 하셨습니다.`);
+                    }
+                    // if (id in sessionStorage) {
+                    //     sessionStorage.setItem(id, now);
+                    //     return;
+                    // } else {
+                    //     sessionStorage.setItem(id, now);
+                    //     alert(`사용자 ${id} 님이 로그인 하셨습니다.`);
+                    // }
+                }
+            }
+        }
+
+        // window.addEventListener("beforeunload", (event) => {
+        //     event.preventDefault();
+        //     event.returnValue = "";
+        // });
+
+        function logout() {
+            //sessionStorage.removeItem(sessionStorage.key(sessionStorage.key.length - 1));
+            sessionStorage.removeItem(id);
+        }
+    </script>
+</head>
+
+<body onload="sessionStore()" onunload="logout()">
+    <nav id="menubar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">About Me</a></li>
+            <li style="float: right;"><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+    <h2>Input User Information</h2>
+    <hr>
+    <div style="border: 0; float: left; width: 50%; margin-top: 40px;">
+        <form id="admin_form" action="/insert" name="userForm" method="post" target="targetURL">
+            <p>Userid <input style="margin-left: 30px;" type="text" size="15" name="id"></p>
+            <p>Password <input style="margin-left: 10px;" type="password" size="15" name="pw"></p>
+
+            <input type="button" value="get select" onclick='document.targetURL.location.href="/select"'>&nbsp;&nbsp;
+
+            <input type="button" value="get selectQuery"
+                onclick='document.targetURL.location.href="/selectQuery?userid="+document.userForm.id.value'>&nbsp;&nbsp;
+
+            <input type="submit" value="post insert"><br><br>
+
+            <button style="margin-bottom: 10px;" type="submit" formaction="/update">post update</button>&nbsp;&nbsp;
+
+            <button style="margin-bottom: 10px;" type="submit" formaction="/delete">post delete</button>&nbsp;&nbsp;
+            <input style="margin-bottom: 10px;" type="reset" value="reset text">
+        </form>
+    </div>
+
+    <div style="border: 0; float: left; width: 50%; margin-top: 40px;">
+        <iframe style="margin-left: 200px;" name="targetURL" src="/hello">
+    </div>
+</body>
+
+</html>
