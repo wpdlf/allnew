@@ -36,9 +36,9 @@ form#admin_form {
 iframe {
     border: solid green;
     border-radius: 10px;
-    height: 500px;
+    height: 700px;
     width: 600px;
-    background-color: rgb(223, 255, 216);
+    /* background-color: rgb(223, 255, 216); */
     margin-left: 65px;
 }
 

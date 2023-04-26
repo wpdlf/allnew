@@ -5,22 +5,34 @@
     <meta charset="utf-8">
     <title>여러개 마커 표시하기</title>
     <link type="text/css" rel="stylesheet" href="mystyle.css">
+    <script>
+        function load_mini(URL) {
+            window.open(URL, "miniWin", "left=600,top=100,width=750,height=800");
+        }
+        function load_full(URL) {
+            window.open(URL, "fullWin");
+        }
+    </script>
 </head>
 
 <body>
     <nav id="menubar">
         <ul>
-            <li><a href="">2023.03.01</a></li>
-            <li style="float: right;"><a href="index.html">2023.03.07</a></li>
-            <li style="float: right;"><a href="index.html">2023.03.06</a></li>
-            <li style="float: right;"><a href="index.html">2023.03.05</a></li>
-            <li style="float: right;"><a href="index.html">2023.03.04</a></li>
-            <li style="float: right;"><a href="index.html">2023.03.03</a></li>
-            <li style="float: right;"><a href="index.html">2023.03.02</a></li>
+            <li><a href="">2023.03.13</a></li>
+            <li style="float: right;"><a href="index.html">2023.03.19</a></li>
+            <li style="float: right;"><a href="index.html">2023.03.18</a></li>
+            <li style="float: right;"><a href="index.html">2023.03.17</a></li>
+            <li style="float: right;"><a href="index.html">2023.03.16</a></li>
+            <li style="float: right;"><a href="index.html">2023.03.15</a></li>
+            <li style="float: right;"><a href="index.html">2023.03.14</a></li>
         </ul>
     </nav>
     <div id="map" style="width:500px; height:600px; margin-top: 30px;"></div>
-    <span style="float: right;">hello</span>
+
+    <div style="float: right;"><a href="javascript:load_mini('seoul.html')">오늘의 서울 날씨</div><br>
+    <div style="float: right;"><a href="javascript:load_full('mongoose_input.html')">새로운 관광지 추가</div><br>
+    <div style="float: right;"><a href="javascript:load_full('cloth_input.html')">새로운 옷 추가</div><br>
+    <div style="float: right;"><a href="javascript:load_full('cloth_find.html')">현재 기온으로 옷 추천</div>
 
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6c55efbdf9d38223f8ee2c7360dc0512"></script>
@@ -79,7 +91,7 @@
         for (var i = 0; i < positions.length; i++) {
 
             // 마커 이미지의 이미지 크기 입니다
-            var imageSize = new kakao.maps.Size(24, 35);
+            var imageSize = new kakao.maps.Size(21, 32);
 
             // 마커 이미지를 생성합니다    
             var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);

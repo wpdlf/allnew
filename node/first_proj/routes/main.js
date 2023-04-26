@@ -72,7 +72,7 @@ app.post('/rec_place_insert', function (req, res, next) {
         })
     }
     res.status(200)
-    res.redirect('/select')
+    res.send(result)
 });
 
 
@@ -276,11 +276,11 @@ app.post('/places_delete', function (req, res, next) {
 //     for (var i = 0; i < result.length; i++) {
 //         template += `
 //         <tr>
-//             <td>${result[i]['id']}</td>
-//             <td>${result[i]['name']}</td>
-//             <td>${result[i]['category']}</td>
+//             <td>${result[i]['location']}</td>
 //             <td>${result[i]['temp_min']}</td>
 //             <td>${result[i]['temp_max']}</td>
+//             <td>${result[i]['fine_dust']}</td>
+//             <td>${result[i]['prec']}</td>
 //         </tr>
 //         `;
 //     }
@@ -292,6 +292,42 @@ app.post('/places_delete', function (req, res, next) {
 //     `;
 //     res.end(template);
 // }
+
+function show_table(result, res) {
+    res.writeHead(200);
+    var template = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="table.css">
+        </head>
+        <body>
+            <table style="margin:auto; text-align:center;">
+                <thead>
+                    <tr><th>지역</th><th>최저 기온</th><th>최고 기온</th><th>미세 먼지</th><th>강수량</th></tr>
+                </thead>
+                <tbody>
+                `;
+    for (var i = 0; i < result.length; i++) {
+        template += `
+        <tr>
+            <td>${result[i]['location']}</td>
+            <td>${result[i]['temp_min']}</td>
+            <td>${result[i]['temp_max']}</td>
+            <td>${result[i]['fine_dust']}</td>
+            <td>${result[i]['prec']}</td>
+        </tr>
+        `;
+    }
+    template += `
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `;
+    res.end(template);
+}
 
 // function cantfind_id(res) {
 //     res.send(
@@ -494,9 +530,12 @@ app.get("/select", (req, res) => {
 
 
 app.get("/show_wt", (req, res) => {
-    const result = connection.query("SELECT * FROM weather WHERE location = '서울' AND date = '20230313';");
+    //const result = connection.query("SELECT * FROM weather WHERE location = '서울' AND date = '20230313';");
+    const result = connection.query("SELECT * FROM weather WHERE date = '20230313';");
     console.log(result);
-    res.send(result);
+
+    show_table(result, res);
+    //res.send(result);
 });
 
 app.post("/show_wt", (req, res) => {
@@ -601,6 +640,7 @@ app.post("/find_my_cloth", (req, res) => {
             }
         }
         console.log(result);
+        res.send(result);
     }
 });
 
