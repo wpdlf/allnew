@@ -1,7 +1,15 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const mysql = require("sync-mysql")
+const express = require("express")
+const app = express()
+const mongoose = require("mongoose")
+const mysql = require("sync-mysql");
+const bodyParser = require("body-parser");
 const env = require("dotenv").config({ path: "../../.env" });
+const query = require("async");
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 var connection = new mysql({
     host: process.env.host,
@@ -10,12 +18,103 @@ var connection = new mysql({
     database: process.env.database
 });
 
-const app = express()
+// define schema
+var new_clothes_Schema = mongoose.Schema({
+    cloth_name: String,
+    category: String
+}, {
+    versionKey: false
+})
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+var new_places_Schema = mongoose.Schema({
+    place_name: String,
+    type: String,
+    location: String
+}, {
+    versionKey: false
+})
+
+// create model with mongodb collection and schema
+var New_clohtes = mongoose.model('musinsa', new_clothes_Schema);
+var New_places = mongoose.model('agoda', new_places_Schema);
+
+// list
+app.get('/list', function (req, res, next) {
+    User.find({}, function (err, docs) {
+        if (err) console.log('err')
+        res.send(docs)
+    })
+});
+
+// get
+app.get('/get', function (req, res, next) {
+    var userid = req.query.input
+    User.findOne({ 'userid': userid }, function (err, doc) {
+        if (err) console.log('err')
+        res.send(doc)
+    })
+});
+
+// new clothes insert from users
+app.post('/cloth_insert', function (req, res, next) {
+    var cloth_name = req.body.cloth_name;
+    var category = req.body.category;
+    var new_clothes = new New_clohtes({ 'cloth_name': cloth_name, 'category': category })
+
+    new_clothes.save(function (err, silence) {
+        if (err) {
+            console.log('err')
+            res.status(500).send('insert error')
+            return;
+        }
+        res.status(200).send("Inserted")
+    })
+    //res.redirect('/list')
+});
+
+// update
+app.post('/update', function (req, res, next) {
+    var userid = req.body.userid;
+    var name = req.body.name;
+    var city = req.body.city;
+    var sex = req.body.sex;
+    var age = req.body.age;
+
+    User.findOne({ 'userid': userid }, function (err, user) {
+        if (err) {
+            console.log('err')
+            res.status(500).send('update error')
+        }
+
+        user.name = name;
+        user.sex = sex;
+        user.city = city;
+        user.age = age;
+
+        user.save(function (err, silence) {
+            if (err) {
+                console.log('err')
+                res.status(500).send('update error')
+                return;
+            }
+            res.status(200).send("Updated")
+        })
+    })
+});
+
+// delete
+app.post('/delete', function (req, res, next) {
+    var userid = req.body.userid;
+    var user = User.find({ 'userid': userid })
+    user.deleteOne(function (err) {
+        if (err) {
+            console.log('err')
+            res.status(500).send('delete error')
+            return;
+        }
+        res.status(200).send("Removed")
+    })
+});
 
 // function show_table(result, res) {
 //     res.writeHead(200);
@@ -337,22 +436,20 @@ app.post("/insert_cloth", (req, res) => {
 app.post("/find_my_cloth", (req, res) => {
     const { now_temp, cloth_category } = req.body;
     const clothes = connection.query("select name, temp_min, temp_max from clothes where category=?", [cloth_category]);
+    const mintemp = [];
+    const maxtemp = [];
+    const result = [];
 
-    console.log(clothes);
-    let mintemp = [];
-    let maxtemp = [];
+    Array.from(clothes).forEach((clothing) => {
+        mintemp.push(clothing.temp_min);
+        maxtemp.push(clothing.temp_max);
+    });
+
+    console.log(clothes)
 
     for (var i = 0; i < clothes.length; i++) {
-        mintemp[i] = clothes[i]['temp_min'];
-        maxtemp[i] = clothes[i]['temp_max'];
-    }
-
-    // console.log(mintemp)
-    // console.log(maxtemp)
-
-    for (var j = 0; j < clothes.length; j++) {
-        if (maxtemp[j] > now_temp && mintemp[j] < now_temp) {
-            result = connection.query("select name from clothes where category=? AND temp_min=? AND temp_max=?", [cloth_category, mintemp[j], maxtemp[j]]);
+        if ((maxtemp[i] >= now_temp) && (mintemp[i] <= now_temp)) {
+            result.push(clothes[i].name);
         }
     }
     console.log(result);
