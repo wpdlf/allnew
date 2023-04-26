@@ -34,13 +34,51 @@ var new_places_Schema = mongoose.Schema({
     versionKey: false
 })
 
+var rec_places_Schema = mongoose.Schema({
+    location: String,
+    date: String,
+    place_name: String
+}, {
+    versionKey: false
+})
+
 // create model with mongodb collection and schema
-var New_clohtes = mongoose.model('musinsa', new_clothes_Schema);
-var New_places = mongoose.model('agoda', new_places_Schema);
+var New_clohtes = mongoose.model('musinsas', new_clothes_Schema);
+var New_places = mongoose.model('agodas', new_places_Schema);
+var Rec_places = mongoose.model('rec_places', rec_places_Schema);
+
+// mysql에서 뽑아온 추천 관광지를 mongodb에 바로 저장
+app.post('/rec_place_insert', function (req, res, next) {
+    const { loc, user_date } = req.body;
+    const result = connection.query(
+        "SELECT w.location, w.date, p.name AS place_name FROM weather w JOIN places p ON w.location = p.location AND w.temp_min <= p.temp_min WHERE w.location=? AND w.date=?;", [loc, user_date]);
+    var location = [];
+    var date = [];
+    var place_name = [];
+
+    for (let i = 0; i < result.length; i++) {
+        location[i] = result[i]['location'];
+        date[i] = result[i]['date'];
+        place_name[i] = result[i]['place_name'];
+
+        var rec_places = new Rec_places({ 'location': location[i], 'date': date[i], 'place_name': place_name[i] })
+
+        rec_places.save(function (err, silence) {
+            if (err) {
+                console.log('err')
+                res.status(500).send('insert error')
+                return;
+            }
+        })
+    }
+    res.status(200)
+    res.redirect('/select')
+});
+
 
 // list
 app.get('/list', function (req, res, next) {
-    User.find({}, function (err, docs) {
+    New_clohtes.find({}, function (err, docs) {
         if (err) console.log('err')
         res.send(docs)
     })
@@ -67,52 +105,155 @@ app.post('/cloth_insert', function (req, res, next) {
             res.status(500).send('insert error')
             return;
         }
-        res.status(200).send("Inserted")
+        res.status(200)
+        res.redirect('/list')
+    })
+});
+
+// new places insert from users
+app.post('/place_insert', function (req, res, next) {
+    var place_name = req.body.place_name;
+    var type = req.body.type;
+    var location = req.body.location;
+    var new_places = new New_places({ 'place_name': place_name, 'type': type, 'location': location })
+
+    new_places.save(function (err, silence) {
+        if (err) {
+            console.log('err')
+            res.status(500).send('insert error')
+            return;
+        }
+        res.status(200)
+        res.redirect('/list')
     })
     //res.redirect('/list')
 });
 
 // update
-app.post('/update', function (req, res, next) {
-    var userid = req.body.userid;
-    var name = req.body.name;
-    var city = req.body.city;
-    var sex = req.body.sex;
-    var age = req.body.age;
+// app.post('/update', function (req, res, next) {
+//     var userid = req.body.userid;
+//     var name = req.body.name;
+//     var city = req.body.city;
+//     var sex = req.body.sex;
+//     var age = req.body.age;
 
-    User.findOne({ 'userid': userid }, function (err, user) {
+//     User.findOne({ 'userid': userid }, function (err, user) {
+//         if (err) {
+//             console.log('err')
+//             res.status(500).send('update error')
+//         }
+
+//         user.name = name;
+//         user.sex = sex;
+//         user.city = city;
+//         user.age = age;
+
+//         user.save(function (err, silence) {
+//             if (err) {
+//                 console.log('err')
+//                 res.status(500).send('update error')
+//                 return;
+//             }
+//             res.status(200).send("Updated")
+//         })
+//     })
+// });
+
+// new clothes update from users
+app.post('/cloth_update', function (req, res, next) {
+    var cloth_name = req.body.cloth_name;
+    var category = req.body.category;
+
+    New_clohtes.findOne({ 'cloth_name': cloth_name }, function (err, new_clohtes) {
         if (err) {
             console.log('err')
             res.status(500).send('update error')
+            return;
         }
+        new_clohtes.cloth_name = cloth_name;
+        new_clohtes.category = category;
 
-        user.name = name;
-        user.sex = sex;
-        user.city = city;
-        user.age = age;
-
-        user.save(function (err, silence) {
+        new_clohtes.save(function (err, silence) {
             if (err) {
                 console.log('err')
                 res.status(500).send('update error')
                 return;
             }
-            res.status(200).send("Updated")
+            res.status(200)
+            res.redirect('/list')
+        })
+    })
+});
+
+// new places update
+app.post('/place_update', function (req, res, next) {
+    var place_name = req.body.place_name;
+    var type = req.body.type;
+    var location = req.body.location;
+
+    New_places.findOne({ 'place_name': place_name }, function (err, new_places) {
+        if (err) {
+            console.log('err')
+            res.status(500).send('update error')
+            return;
+        }
+        new_places.place_name = cloth_name;
+        new_places.type = type;
+        new_places.location = location;
+
+        new_places.save(function (err, silence) {
+            if (err) {
+                console.log('err')
+                res.status(500).send('update error')
+                return;
+            }
+            res.status(200)
+            res.redirect('/list')
         })
     })
 });
 
 // delete
-app.post('/delete', function (req, res, next) {
-    var userid = req.body.userid;
-    var user = User.find({ 'userid': userid })
-    user.deleteOne(function (err) {
+// app.post('/delete', function (req, res, next) {
+//     var userid = req.body.userid;
+//     var user = User.find({ 'userid': userid })
+//     user.deleteOne(function (err) {
+//         if (err) {
+//             console.log('err')
+//             res.status(500).send('delete error')
+//             return;
+//         }
+//         res.status(200).send("Removed")
+//     })
+// });
+
+// clothes delete
+app.post('/cloth_delete', function (req, res, next) {
+    var cloth_name = req.body.cloth_name;
+    var new_clohtes = New_clohtes.find({ 'cloth_name': cloth_name })
+    new_clohtes.remove(function (err) {
         if (err) {
             console.log('err')
             res.status(500).send('delete error')
             return;
         }
-        res.status(200).send("Removed")
+        res.status(200)
+        res.redirect('/list')
+    })
+});
+
+// delete place
+app.post('/places_delete', function (req, res, next) {
+    var place_name = req.body.place_name;
+    var new_places = New_places.find({ 'place_name': place_name })
+    new_places.remove(function (err) {
+        if (err) {
+            console.log('err')
+            res.status(500).send('delete error')
+            return;
+        }
+        res.status(200)
+        res.redirect('/list')
     })
 });
 
@@ -408,29 +549,29 @@ app.post("/rec_cloth", (req, res) => {
 });
 
 
-app.post("/insert_cloth", (req, res) => {
-    const { id, name, category, temp_min, temp_max } = req.body;
-    const result = connection.query("select * from clothes where id=?", [id]);
+// app.post("/insert_cloth", (req, res) => {
+//     const { id, name, category, temp_min, temp_max } = req.body;
+//     const result = connection.query("select * from clothes where id=?", [id]);
 
-    if (id.length == 0 || name.length == 0 || category.length == 0 || temp_min.length == 0 || temp_max.length == 0) {
-        res.send(
-            `<script>
-                alert('값을 모두 입력해주세요!');
-            </script>`
-        );
-    } else {
-        if (result.length > 0) {
-            res.send(
-                `<script>
-                alert('중복된 cloth ID입니다. 다시 입력해주세요!');
-            </script>`
-            );
-        } else {
-            connection.query("insert into clothes values (?, ?, ?, ?, ?)", [id, name, category, temp_min, temp_max]);
-            res.redirect('/select');
-        }
-    }
-});
+//     if (id.length == 0 || name.length == 0 || category.length == 0 || temp_min.length == 0 || temp_max.length == 0) {
+//         res.send(
+//             `<script>
+//                 alert('값을 모두 입력해주세요!');
+//             </script>`
+//         );
+//     } else {
+//         if (result.length > 0) {
+//             res.send(
+//                 `<script>
+//                 alert('중복된 cloth ID입니다. 다시 입력해주세요!');
+//             </script>`
+//             );
+//         } else {
+//             connection.query("insert into clothes values (?, ?, ?, ?, ?)", [id, name, category, temp_min, temp_max]);
+//             res.redirect('/select');
+//         }
+//     }
+// });
 
 
 app.post("/find_my_cloth", (req, res) => {
@@ -440,19 +581,27 @@ app.post("/find_my_cloth", (req, res) => {
     const maxtemp = [];
     const result = [];
 
+    console.log(clothes)
+
     Array.from(clothes).forEach((clothing) => {
         mintemp.push(clothing.temp_min);
         maxtemp.push(clothing.temp_max);
     });
 
-    console.log(clothes)
-
-    for (var i = 0; i < clothes.length; i++) {
-        if ((maxtemp[i] >= now_temp) && (mintemp[i] <= now_temp)) {
-            result.push(clothes[i].name);
+    if (now_temp.length == 0 || cloth_category.length == 0) {
+        res.send(
+            `<script>
+                alert('현재 온도와 원하시는 옷 카테고리를 모두 입력해주세요!');
+            </script>`
+        );
+    } else {
+        for (var i = 0; i < clothes.length; i++) {
+            if ((maxtemp[i] >= now_temp) && (mintemp[i] <= now_temp)) {
+                result.push(clothes[i].name);
+            }
         }
+        console.log(result);
     }
-    console.log(result);
 });
 
 

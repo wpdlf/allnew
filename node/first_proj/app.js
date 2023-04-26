@@ -4,6 +4,7 @@ const path = require('path')
 const app = express()
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const router = express.Router()
 
 app.set('port', process.env.PORT || 8000)
 app.use(morgan('dev'))
@@ -12,8 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
+// mongoose configuration
 const mongoose = require("mongoose")
-mongoose.connect("mongodb://192.168.1.78:27017/test")
+mongoose.connect("mongodb://192.168.1.158:27017/test")
 
 const mysql = require('sync-mysql');
 const env = require('dotenv').config({ path: "../../.env" });
