@@ -7,7 +7,7 @@
     <link type="text/css" rel="stylesheet" href="mystyle.css">
     <script>
         function load_mini(URL) {
-            window.open(URL, "miniWin", "left=600,top=100,width=750,height=650");
+            window.open(URL, "miniWin", "left=600,top=100,width=750,height=700");
         }
         function load_full(URL) {
             window.open(URL, "fullWin");
@@ -20,7 +20,7 @@
 
     <div id="map" style="width:500px; height:600px; margin-top: 30px;"></div>
 
-    <div style="float: right;"><a href="javascript:load_mini()">오늘의 서울 홍대충들</div><br>
+    <div style="float: right;"><a href="javascript:load_mini('0313_seoul.html')">오늘의 서울 홍대충들</div><br>
     <div style="float: right;"><a href="javascript:load_full('mongoose_input.html')">새로운 관광지 추가</div><br>
     <div style="float: right;"><a href="javascript:load_full('cloth_input.html')">새로운 옷 추가</div><br>
     <div style="float: right;"><a href="javascript:load_full('cloth_find.html')">현재 기온으로 옷 추천</div>
@@ -31,16 +31,28 @@
         window.onload = () => {
 
             let days = new Array("20230314", "20230315", "20230316", "20230317", "20230318", "20230319");
+            let locs = new Array("서울", "경기", "인천", "강원", "충남", "대전", "충북", "세종", "부산", "울산", "대구", "경북", "경남", "전남", "광주", "전북", "제주")
 
             var menu_view = ``
             for (let i = 5; i >= 0; i--) {
                 menu_view += `
-             <span style="float: right;"><a href="javascript:load_mini('/show/${days[i]}')">${days[i]}&nbsp;</a></span>
+             <span style="float: right;"><a href="javascript:load_mini('/show_wt/${days[i]}')">${days[i]}&nbsp;</a></span>
         `;
             }
             menu_view += '<br />'
+
+            var loca_view = ``
+            for (let j = 0; j < locs.length; j++) {
+                loca_view += `
+             <span><a href="javascript:load_mini('/show_rec/${locs[j]}')">${locs[j]}&nbsp;</a></span>
+        `;
+            }
+            loca_view += '<br />'
+
             document.getElementById("menu").innerHTML = menu_view;
+            document.getElementById("loca").innerHTML = loca_view;
         }
+
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
             mapOption = {
                 center: new kakao.maps.LatLng(35.5084, 127.7042), // 지도의 중심좌표
@@ -158,6 +170,7 @@
         }
 
     </script>
+    <div id="loca"></div>
 </body>
 
 </html>

@@ -8,6 +8,11 @@ p {
     font-weight: 1000;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 hr {
     background-color: darkgreen;
     height: 5px;

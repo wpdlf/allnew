@@ -229,7 +229,7 @@ function show_table(result, res) {
         <html>
         <head>
             <meta charset="utf-8">
-            <link type="text/css" rel="stylesheet" href="table.css">
+            <link type="text/css" rel="stylesheet" href="/table.css">
         </head>
         <body>
             <table style="margin:auto; text-align:center;">
@@ -266,21 +266,7 @@ app.get("/select", (req, res) => {
     res.send(result);
 });
 
-
-// app.get("/show_wt", (req, res) => {
-//     //const result = connection.query("SELECT * FROM weather WHERE location = '서울' AND date = '20230313';");
-//     const result = connection.query("SELECT * FROM weather WHERE date = '20230314';");
-
-//     if (result.length == 0) {
-//         console.log('{ "ok": false }');
-//     } else {
-//         show_table(result, res);
-//         console.log('{"ok":true,' + JSON.stringify(result) + ' }');
-//     }
-// });
-
-
-app.get("/show/:date", (req, res) => {
+app.get("/show_wt/:date", (req, res) => {
     const { date } = req.params;
     const result = connection.query("select * from weather WHERE date=?;", [date]);
 
@@ -294,8 +280,14 @@ app.get("/show/:date", (req, res) => {
         <head>
             <meta charset="utf-8">
             <link type="text/css" rel="stylesheet" href="/table.css">
+            <style>
+                @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+                @import url('https://fonts.googleapis.com/css2?family=Lato&family=Noto+Serif+KR:wght@600&display=swap');
+            </style>
         </head>
         <body>
+            <h2>🌞Today's Weather&nbsp;:&nbsp;&nbsp;${date}🌞</h2>
+            <hr>
             <table style="margin:auto; text-align:center;">
                 <thead>
                     <tr><th>지역</th><th>최저 기온</th><th>최고 기온</th><th>미세 먼지</th><th>강수량</th></tr>
@@ -322,23 +314,111 @@ app.get("/show/:date", (req, res) => {
     res.end(template);
 });
 
+app.post("/show_wt", (req, res) => {
+    const { loc, date } = req.body;
+    const result = connection.query("select * from weather WHERE location=? AND date=?;", [loc, date]);
 
-// app.post("/show_wt", (req, res) => {
-//     const { loc, date } = req.body;
-//     const result = connection.query("select * from weather WHERE location=? AND date=?;", [loc, date]);
+    if (result.length == 0) {
+        //console.log('{ "ok": false }');
+        res.send('{ "ok": false }');
+    } else {
+        //console.log('{"ok":true,' + JSON.stringify(result) + ' }');
+        res.send('{"ok":true,' + JSON.stringify(result) + ' }');
+    }
+});
 
-//     if (result.length == 0) {
-//         console.log('{ "ok": false }');
-//     } else {
-//         console.log('{"ok":true,' + JSON.stringify(result) + ' }');
-//     }
-// });
+app.get("/show_rec/:location", (req, res) => {
+    const { location } = req.params;
 
-app.get("/rec_place", (req, res) => {
-    const result = connection.query(
-        "SELECT w.location, w.date, p.name AS place_name FROM weather w JOIN places p ON w.location = p.location AND w.temp_min <= p.temp_min WHERE w.location = '대전' AND w.date = '20230328'; ");
-    console.log(result);
-    res.send(result);
+    const result_place = connection.query(
+        "SELECT w.location, w.date, p.name AS place_name FROM weather w JOIN places p ON w.location = p.location AND w.temp_min <= p.temp_min WHERE w.location=? AND w.date = '20230313'; ", [location]);
+
+    const result_cloth = connection.query(
+        "SELECT w.location, w.date, c.name AS cloth_name FROM clothes c JOIN weather w ON w.temp_max >= c.temp_max AND w.temp_min >= c.temp_min WHERE w.location=? AND w.date = '20230313'; ", [location]);
+
+    const result_wt = connection.query("select * from weather WHERE location=? AND date='20230313';", [location]);
+
+    if (result_place.length == 0 || result_cloth.length == 0 || result_wt.length == 0) {
+        console.log('{ "ok": false }');
+    } else {
+        res.writeHead(200);
+        var template = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <h2>20230313 ${location} 날씨 기반 추천 관광지</h2>
+            <hr>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="/table.css">
+        </head>
+        <body>
+            <table style="margin:auto; text-align:center;">
+                <thead>
+                    <tr><th>지역</th><th>날짜</th><th>관광지 이름</th></tr>
+                </thead>
+                <tbody>
+                `;
+        for (var i = 0; i < result_place.length; i++) {
+            template += `
+        <tr>
+            <td>${result_place[i]['location']}</td>
+            <td>${result_place[i]['date']}</td>
+            <td>${result_place[i]['place_name']}</td>
+        </tr>
+        `;
+        }
+        template += `
+                </tbody>
+            </table>
+
+            <h2>20230313 ${location} 날씨 기반 추천 옷차림</h2>
+            <hr>
+            <table style="margin:auto; text-align:center;">
+                <thead>
+                    <tr><th>지역</th><th>날짜</th><th>추천 옷</th></tr>
+                </thead>
+                <tbody>
+                `;
+        for (var i = 0; i < result_cloth.length; i++) {
+            template += `
+        <tr>
+            <td>${result_cloth[i]['location']}</td>
+            <td>${result_cloth[i]['date']}</td>
+            <td>${result_cloth[i]['cloth_name']}</td>
+        </tr>
+        `;
+        }
+        template += `
+                </tbody>
+            </table>
+
+            <h2>20230313 ${location} 기상정보</h2>
+            <hr>
+            <table style="margin:auto; text-align:center;">
+                <thead>
+                    <tr><th>최저 기온</th><th>최고 기온</th><th>미세 먼지</th><th>강수량</th></tr>
+                </thead>
+                <tbody>
+                `;
+        for (var i = 0; i < result_wt.length; i++) {
+            template += `
+        <tr>
+            <td>${result_wt[i]['temp_min']}</td>
+            <td>${result_wt[i]['temp_max']}</td>
+            <td>${result_wt[i]['fine_dust']}</td>
+            <td>${result_wt[i]['prec']}</td>
+        </tr>
+        `;
+        }
+        template += `
+        </body >
+        </html >
+            `;
+        res.end(template);
+        console.log('{"ok":true,' + JSON.stringify(result_place) + ' }');
+        console.log('{"ok":true,' + JSON.stringify(result_cloth) + ' }');
+        console.log('{"ok":true,' + JSON.stringify(result_wt) + ' }');
+    }
 });
 
 app.post("/rec_place", (req, res) => {
@@ -387,9 +467,9 @@ app.post("/find_my_cloth", (req, res) => {
 
     if (now_temp.length == 0 || cloth_category.length == 0) {
         res.send(
-            `<script>
-                alert('현재 온도와 원하시는 옷 카테고리를 모두 입력해주세요!');
-            </script>`
+            `< script >
+            alert('현재 온도와 원하시는 옷 카테고리를 모두 입력해주세요!');
+            </script > `
         );
     } else {
         for (var i = 0; i < clothes.length; i++) {
