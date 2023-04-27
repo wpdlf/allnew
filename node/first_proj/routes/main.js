@@ -5,11 +5,22 @@ const mysql = require("sync-mysql");
 const bodyParser = require("body-parser");
 const env = require("dotenv").config({ path: "../../.env" });
 const query = require("async");
+const axios = require('axios');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+axios
+    .get('http://192.168.1.78:8000/select_clothes')
+    .then(res => {
+        console.log(`statusCode : ${res.status}`)
+        console.log(res)
+    })
+    .catch(error => {
+        console.log(error)
+    })
 
 var connection = new mysql({
     host: process.env.host,
@@ -112,7 +123,8 @@ app.post('/cloth_insert', function (req, res, next) {
             return;
         }
         res.status(200)
-        res.redirect('/list')
+        //res.send('/list')
+        //console.log('{"ok":true,' + JSON.stringify(result) + ' }');
     })
 });
 
@@ -130,7 +142,7 @@ app.post('/place_insert', function (req, res, next) {
             return;
         }
         res.status(200)
-        res.redirect('/list')
+        res.redirect('/select')
     })
     //res.redirect('/list')
 });
@@ -263,7 +275,86 @@ function show_table(result, res) {
 
 app.get("/select", (req, res) => {
     const result = connection.query("SELECT * FROM places;");
-    res.send(result);
+
+    if (result.length == 0) {
+        res.send('{ "ok": false }');
+    } else {
+        res.writeHead(200);
+        var template = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="/table.css">
+        </head>
+        <body>
+            <table style="margin:auto; text-align:center;">
+                <thead>
+                    <tr><th>ID</th><th>Location</th><th>Name</th><th>Type</th></tr>
+                </thead>
+                <tbody>
+                `;
+        for (var i = 0; i < result.length; i++) {
+            template += `
+        <tr>
+            <td>${result[i]['id']}</td>
+            <td>${result[i]['location']}</td>
+            <td>${result[i]['name']}</td>
+            <td>${result[i]['type']}</td>
+        </tr>
+        `;
+        }
+        template += `
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `;
+        res.end(template);
+    }
+});
+
+app.get("/select_clothes", (req, res) => {
+    const result = connection.query("SELECT * FROM clothes;");
+
+    if (result.length == 0) {
+        res.send('{ "ok": false }');
+    } else {
+        res.writeHead(200);
+        var template = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="/table.css">
+        </head>
+        <body>
+            <table style="margin:auto; text-align:center;">
+                <thead>
+                    <tr><th>ID</th><th>Cloth Name</th><th>Category</th><th>Temp_min</th><th>Temp_max</th></tr>
+                </thead>
+                <tbody>
+                `;
+        for (var i = 0; i < result.length; i++) {
+            template += `
+        <tr>
+            <td>${result[i]['id']}</td>
+            <td>${result[i]['name']}</td>
+            <td>${result[i]['category']}</td>
+            <td>${result[i]['temp_min']}</td>
+            <td>${result[i]['temp_max']}</td>
+        </tr>
+        `;
+        }
+        template += `
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `;
+        res.end(template);
+        res.console('{"ok": true,' + JSON.stringify(result) + ' }');
+    }
 });
 
 app.get("/show_wt/:date", (req, res) => {
@@ -467,18 +558,46 @@ app.post("/find_my_cloth", (req, res) => {
 
     if (now_temp.length == 0 || cloth_category.length == 0) {
         res.send(
-            `< script >
+            `<script>
             alert('현재 온도와 원하시는 옷 카테고리를 모두 입력해주세요!');
             </script > `
         );
+        return;
     } else {
         for (var i = 0; i < clothes.length; i++) {
             if ((maxtemp[i] >= now_temp) && (mintemp[i] <= now_temp)) {
                 result.push(clothes[i].name);
             }
         }
-        console.log(result);
-        res.send(result);
+        res.writeHead(200);
+        var template = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="/table.css">
+        </head>
+        <body>
+            <table style="margin:auto; text-align:center;" width="300px">
+                <thead>
+                    <tr><th>Recommand clothes for you</th></tr>
+                </thead>
+                <tbody>
+                `;
+        for (var i = 0; i < clothes.length; i++) {
+            template += `
+        <tr>
+            <td>${clothes[i]['name']}</td>
+        </tr>
+        `;
+        }
+        template += `
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `;
+        res.end(template);
     }
 });
 

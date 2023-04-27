@@ -4,7 +4,7 @@ body {
 }
 
 p {
-    color: green;
+    color: #424242;
     font-weight: 1000;
 }
 
@@ -14,14 +14,14 @@ a {
 }
 
 hr {
-    background-color: darkgreen;
+    background-color: #2E2E2E;
     height: 5px;
-    border: solid darkgreen;
+    border: solid #2E2E2E;
 }
 
 form {
-    border: solid green;
-    border-radius: 15px;
+    border: solid #6E6E6E;
+    border-radius: 10px;
     width: 35%;
     text-align: center;
     margin: auto;
@@ -29,17 +29,17 @@ form {
 }
 
 form#admin_form {
-    border: solid green;
+    border: solid #6E6E6E;
     border-radius: 10px;
     text-align: center;
-    background-color: rgb(223, 255, 216);
-    height: 600px;
-    width: 500px;
-    margin-left: 300px;
+    background-color: #FFFFFF;
+    height: 300px;
+    width: 600px;
+    margin-left: 200px;
 }
 
 iframe {
-    border: solid green;
+    border: solid #6E6E6E;
     border-radius: 10px;
     height: 700px;
     width: 600px;
@@ -51,24 +51,24 @@ button,
 input,
 button[type=submit] {
     border-radius: 5px;
-    border: solid green;
-    background-color: rgb(226, 247, 196);
+    border: solid #6E6E6E;
+    background-color: #FFFFFF;
     font-weight: 1000;
-    color: green;
+    color: #2E2E2E;
 }
 
 button,
 input:hover {
-    background-color: yellowgreen;
+    background-color: #FFFFFF;
 }
 
 button[type=submit]:hover {
-    background-color: yellowgreen;
+    background-color: #D8D8D8;
 }
 
 h2 {
     text-align: center;
-    color: green;
+    color: #2E2E2E;
 }
 
 div.box {
@@ -88,13 +88,8 @@ div#input_TryAg {
     text-align: center;
 }
 
-
-
-
-
-
 #menubar {
-    background: darkgreen;
+    background: #A4A4A4;
 }
 
 #menubar ul {
@@ -121,6 +116,12 @@ div#input_TryAg {
 }
 
 #menubar ul li a:hover {
-    color: yellowgreen;
+    color: #A4A4A4;
     /* 마우스 올라 갈 때 색 */
+}
+
+/* map.html */
+#map {
+    margin-left: auto;
+    margin-right: auto;
 }
