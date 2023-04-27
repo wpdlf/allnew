@@ -88,6 +88,10 @@ app.get('/list', function (req, res, next) {
 
 // get
 app.get('/get', function (req, res, next) {
+
+    // 192.168.1.78:8000/get/?1
+    // req.getPara
+
     var userid = req.query.input
     User.findOne({ 'userid': userid }, function (err, doc) {
         if (err) console.log('err')
@@ -263,33 +267,72 @@ app.get("/select", (req, res) => {
 });
 
 
-app.get("/show_wt", (req, res) => {
-    //const result = connection.query("SELECT * FROM weather WHERE location = '서울' AND date = '20230313';");
-    const result = connection.query("SELECT * FROM weather WHERE date = '20230314';");
+// app.get("/show_wt", (req, res) => {
+//     //const result = connection.query("SELECT * FROM weather WHERE location = '서울' AND date = '20230313';");
+//     const result = connection.query("SELECT * FROM weather WHERE date = '20230314';");
 
-    if (result.length == 0) {
-        res.send('{ "ok": false }');
-        console.log('{ "ok": false }');
-    } else {
-        show_table(result, res);
-        res.send('{"ok": true,' + JSON.stringify(result) + ' }');
-        console.log('{"ok":true,' + JSON.stringify(result) + ' }');
+//     if (result.length == 0) {
+//         console.log('{ "ok": false }');
+//     } else {
+//         show_table(result, res);
+//         console.log('{"ok":true,' + JSON.stringify(result) + ' }');
+//     }
+// });
+
+
+app.get("/show/:date", (req, res) => {
+    const { date } = req.params;
+    const result = connection.query("select * from weather WHERE date=?;", [date]);
+
+    console.log(date)
+    console.log(result)
+
+    res.writeHead(200);
+    var template = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="/table.css">
+        </head>
+        <body>
+            <table style="margin:auto; text-align:center;">
+                <thead>
+                    <tr><th>지역</th><th>최저 기온</th><th>최고 기온</th><th>미세 먼지</th><th>강수량</th></tr>
+                </thead>
+                <tbody>
+                `;
+    for (var i = 0; i < result.length; i++) {
+        template += `
+        <tr>
+            <td>${result[i]['location']}</td>
+            <td>${result[i]['temp_min']}</td>
+            <td>${result[i]['temp_max']}</td>
+            <td>${result[i]['fine_dust']}</td>
+            <td>${result[i]['prec']}</td>
+        </tr>
+        `;
     }
+    template += `
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `;
+    res.end(template);
 });
 
-app.post("/show_wt", (req, res) => {
-    const { loc, date } = req.body;
-    const result = connection.query("select * from weather WHERE location=? AND date=?;", [loc, date]);
 
-    if (result.length == 0) {
-        res.send('{ "ok": false }');
-        console.log('{ "ok": false }');
-    } else {
-        res.send('{"ok": true,' + JSON.stringify(result) + ' }');
-        console.log('{"ok":true,' + JSON.stringify(result) + ' }');
-    }
-});
+// app.post("/show_wt", (req, res) => {
+//     const { loc, date } = req.body;
+//     const result = connection.query("select * from weather WHERE location=? AND date=?;", [loc, date]);
 
+//     if (result.length == 0) {
+//         console.log('{ "ok": false }');
+//     } else {
+//         console.log('{"ok":true,' + JSON.stringify(result) + ' }');
+//     }
+// });
 
 app.get("/rec_place", (req, res) => {
     const result = connection.query(
