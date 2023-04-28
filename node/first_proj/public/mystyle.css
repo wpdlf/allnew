@@ -13,10 +13,14 @@ a {
     color: black;
 }
 
-hr {
+hr.head {
     background-color: #2E2E2E;
     height: 5px;
     border: solid #2E2E2E;
+}
+
+#foot {
+    border-top: 1px solid #bbb;
 }
 
 form {
@@ -42,7 +46,7 @@ iframe {
     border: solid #6E6E6E;
     border-radius: 10px;
     height: 700px;
-    width: 600px;
+    width: 800px;
     /* background-color: rgb(223, 255, 216); */
     margin-left: 65px;
 }
@@ -59,11 +63,11 @@ button[type=submit] {
 
 button,
 input:hover {
-    background-color: #FFFFFF;
+    background-color: #d0c9c9;
 }
 
 button[type=submit]:hover {
-    background-color: #D8D8D8;
+    background-color: #d0c9c9;
 }
 
 h2 {

@@ -12,15 +12,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-axios
-    .get('http://192.168.1.78:8000/select_clothes')
-    .then(res => {
-        console.log(`statusCode : ${res.status}`)
-        console.log(res)
-    })
-    .catch(error => {
-        console.log(error)
-    })
+// axios
+//     .get('http://192.168.1.78:8000/select_clothes')
+//     .then(res => {
+//         console.log(`statusCode : ${res.status}`)
+//         console.log(res)
+//     })
+//     .catch(error => {
+//         console.log(error)
+//     })
 
 var connection = new mysql({
     host: process.env.host,
@@ -32,7 +32,9 @@ var connection = new mysql({
 // define schema
 var new_clothes_Schema = mongoose.Schema({
     cloth_name: String,
-    category: String
+    category: String,
+    temp_min: String,
+    temp_max: String
 }, {
     versionKey: false
 })
@@ -77,14 +79,42 @@ app.post('/rec_place_insert', function (req, res, next) {
         rec_places.save(function (err, silence) {
             if (err) {
                 res.status(500).send('insert error')
-                res.send('{ "ok": false }');
                 console.log('{ "ok": false }');
                 return;
             }
         })
     }
-    res.status(200)
-    res.send('{"ok": true,' + JSON.stringify(result) + ' }');
+    res.writeHead(200);
+    var template = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <link type="text/css" rel="stylesheet" href="/table.css">
+        </head>
+        <body>
+            <table style="margin:auto; text-align:center;" width="300px">
+                <thead>
+                    <tr><th>Location</th><th>Date</th><th>Place Name</th></tr>
+                </thead>
+                <tbody>
+                `;
+    for (var i = 0; i < result.length; i++) {
+        template += `
+        <tr>
+            <td>${result[i]['location']}</td>
+            <td>${result[i]['date']}</td>
+            <td>${result[i]['place_name']}</td>
+        </tr>
+        `;
+    }
+    template += `
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `;
+    res.end(template);
     console.log('{"ok":true,' + JSON.stringify(result) + ' }');
 });
 
@@ -97,11 +127,15 @@ app.get('/list', function (req, res, next) {
     })
 });
 
+app.get('/list2', function (req, res, next) {
+    New_places.find({}, function (err, docs) {
+        if (err) console.log('err')
+        res.send(docs)
+    })
+});
+
 // get
 app.get('/get', function (req, res, next) {
-
-    // 192.168.1.78:8000/get/?1
-    // req.getPara
 
     var userid = req.query.input
     User.findOne({ 'userid': userid }, function (err, doc) {
@@ -112,9 +146,11 @@ app.get('/get', function (req, res, next) {
 
 // new clothes insert from users
 app.post('/cloth_insert', function (req, res, next) {
-    var cloth_name = req.body.cloth_name;
+    var name = req.body.name;
     var category = req.body.category;
-    var new_clothes = new New_clohtes({ 'cloth_name': cloth_name, 'category': category })
+    var temp_min = req.body.temp_min;
+    var temp_max = req.body.temp_max;
+    var new_clothes = new New_clohtes({ 'cloth_name': name, 'category': category, 'temp_min': temp_min, 'temp_max': temp_max })
 
     new_clothes.save(function (err, silence) {
         if (err) {
@@ -122,9 +158,9 @@ app.post('/cloth_insert', function (req, res, next) {
             res.status(500).send('insert error')
             return;
         }
-        res.status(200)
-        //res.send('/list')
-        //console.log('{"ok":true,' + JSON.stringify(result) + ' }');
+        //res.status(200)
+        res.redirect('/select_clothes')
+        console.log('{"ok":true,' + JSON.stringify(new_clothes) + ' }');
     })
 });
 
@@ -143,6 +179,7 @@ app.post('/place_insert', function (req, res, next) {
         }
         res.status(200)
         res.redirect('/select')
+        console.log('{"ok":true,' + JSON.stringify(new_places) + ' }');
     })
     //res.redirect('/list')
 });
@@ -170,6 +207,7 @@ app.post('/cloth_update', function (req, res, next) {
             }
             res.status(200)
             res.redirect('/list')
+            console.log('{"ok":true,' + JSON.stringify(new_clohtes) + ' }');
         })
     })
 });
@@ -186,7 +224,7 @@ app.post('/place_update', function (req, res, next) {
             res.status(500).send('update error')
             return;
         }
-        new_places.place_name = cloth_name;
+        new_places.place_name = place_name;
         new_places.type = type;
         new_places.location = location;
 
@@ -197,7 +235,8 @@ app.post('/place_update', function (req, res, next) {
                 return;
             }
             res.status(200)
-            res.redirect('/list')
+            res.redirect('/list2')
+            console.log('{"ok":true,' + JSON.stringify(new_places) + ' }');
         })
     })
 });
@@ -215,11 +254,13 @@ app.post('/cloth_delete', function (req, res, next) {
         }
         res.status(200)
         res.redirect('/list')
+        console.log('{"ok":true,' + JSON.stringify(cloth_name) + ' }');
+
     })
 });
 
 // delete place
-app.post('/places_delete', function (req, res, next) {
+app.post('/place_delete', function (req, res, next) {
     var place_name = req.body.place_name;
     var new_places = New_places.find({ 'place_name': place_name })
     new_places.remove(function (err) {
@@ -229,10 +270,10 @@ app.post('/places_delete', function (req, res, next) {
             return;
         }
         res.status(200)
-        res.redirect('/list')
+        res.redirect('/list2')
+        console.log('{"ok":true,' + JSON.stringify(place_name) + ' }');
     })
 });
-
 
 function show_table(result, res) {
     res.writeHead(200);
@@ -288,7 +329,7 @@ app.get("/select", (req, res) => {
             <link type="text/css" rel="stylesheet" href="/table.css">
         </head>
         <body>
-            <table style="margin:auto; text-align:center;">
+            <table style="margin:auto; text-align:center;" width="750px">
                 <thead>
                     <tr><th>ID</th><th>Location</th><th>Name</th><th>Type</th></tr>
                 </thead>
@@ -353,7 +394,7 @@ app.get("/select_clothes", (req, res) => {
         </html>
     `;
         res.end(template);
-        res.console('{"ok": true,' + JSON.stringify(result) + ' }');
+        console.log('{"ok": true,' + JSON.stringify(result) + ' }');
     }
 });
 
