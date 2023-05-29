@@ -37,6 +37,11 @@ python/**/__pycache__/
 python/**/.idea
 python/secret.json
 
+python/**/node_modules
+python/**/package-lock.json
+python/config/pool.js
+python/**/*.json
+
 
 ##mongodb
 mongodb/*.json
