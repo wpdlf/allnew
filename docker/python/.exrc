@@ -1,0 +1,5 @@
+set nu ai sm
+
+
+
+
