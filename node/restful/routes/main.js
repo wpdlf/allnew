@@ -17,7 +17,7 @@ const users = [
 ];
 
 app.get('/hello', (req, res) => {
-    res.send('Helllo World~!!\n')
+    res.send('Helllo World~!!')
 });
 
 // request X, response O
@@ -27,8 +27,13 @@ app.get("/api/users", (req, res) => {
 
 // Query param, request O, response O
 app.get("/api/users/user", (req, res) => {
-    const user_id = req.query.user_id;
-    const user = users.filter(data => data.id == user_id)
+    let user = "";
+    const { user_id, name } = req.query;
+    if (req.query.name == null) {
+        user = users.filter(data => data.id == user_id)
+    } else {
+        user = users.filter(data => data.id == user_id && data.name == name)
+    }
     res.json({ok:false, users:user});
 });
 
