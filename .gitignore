@@ -29,6 +29,10 @@ maven/target
 ##nodejs
 node/**/node_modules
 node/**/package-lock.json
+node/**/package.json
+node/**/**/node_modules
+node/**/**/package-lock.json
+node/**/**/package.json
 node/config/pool.js
 
 
