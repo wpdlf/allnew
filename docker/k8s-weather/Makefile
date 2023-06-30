@@ -1,3 +1,6 @@
+all: build run k8sinit appdep appsvc getdep getsvc getpod
+k8srestart: delsvc deldep appdep appsvc getdep getsvc getpod
+
 build:
 	docker build -t weather .
 run:
