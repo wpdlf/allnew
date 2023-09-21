@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>tab</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <style>
+        html,
+        body {
+            width: 100%;
+        }
+
+        body,
+        div,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        /*tab css*/
+        .tab {
+            float: left;
+            width: 600px;
+            height: 290px;
+        }
+
+        .tabnav {
+            font-size: 0;
+            width: 600px;
+            /* border: 1px solid #ddd; */
+        }
+
+        .li1 {
+            width: 300px;
+        }
+
+        .li2 {
+            width: 300px;
+            float: right;
+        }
+
+        .tabnav li {
+            display: block;
+            height: 0px;
+            text-align: center;
+            border-right: 0px solid #ddd;
+        }
+
+        .tabnav li1 a:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 92px;
+            width: 100%;
+            height: 3px;
+        }
+
+        .tabnav li2 a:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 46px;
+            width: 100%;
+            height: 3px;
+        }
+
+        .tabnav li a.active {
+            border-bottom: 3px solid #00F9FF;
+        }
+
+        .tabnav li a {
+            position: relative;
+            display: block;
+            background: #1B1F38;
+            color: #fff;
+            padding: 0 50px;
+            line-height: 30px;
+            text-decoration: none;
+            font-size: 16px;
+            border-bottom: 3px solid #fff;
+            height: 63px;
+        }
+
+        .tabnav li a:hover,
+        .tabnav li a.active {
+            background: #1B1F38;
+            color: #00F9FF;
+        }
+
+        .tabcontent {
+            margin-top: 63px;
+            padding: 20px;
+            height: 800px;
+            border: 0px solid #ddd;
+            border-top: none;
+            background-color: #1B1F38;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        body {
+            background-color: rgb(8, 8, 36);
+        }
+
+        * {
+            padding: 0;
+            margin: 0
+        }
+
+        li {
+            list-style: none
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 14px
+        }
+
+        label {
+            margin-left: 355px;
+        }
+
+        .menu {
+            width: 380px;
+            overflow: hidden;
+            /* margin: 100px auto; */
+            position: relative;
+            display: inline-block;
+        }
+
+        /* 이미지 체크박스 */
+        .menu input[type=checkbox] {
+            display: none;
+        }
+
+        .menu input[type=checkbox]+label {
+            padding-left: 25px;
+            background-image: url('./images/Frame.png');
+            background-repeat: no-repeat;
+        }
+
+        .menu input[type=checkbox]+label>span {
+            font-weight: bold;
+        }
+
+        .menu input[type=checkbox]:checked+label {
+            background-image: url('./images/Frame2.png');
+        }
+
+        /* 메뉴 목록*/
+        .menu .menuitems {
+            /* display: none; */
+            list-style: none;
+            margin-top: 93px;
+            height: 0px;
+            width: 397px;
+            overflow: auto;
+            /* white-space: nowrap; */
+            transition-duration: 1s;
+        }
+
+        .menu .menuitems li {
+            padding: 5px;
+            width: 97%;
+            /*20*5=100%*/
+            /* float: left; */
+            text-align: left;
+            line-height: 50px;
+            background-color: rgb(8, 8, 36);
+        }
+
+        .menu .menuitems li a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        /* 메뉴 펼침 - 체크박스 체크되면 메뉴목록 표시 */
+        .menu input[type=checkbox]:checked~.menuitems {
+            display: block;
+            height: 380px;
+        }
+
+        /* 펼쳐진 메뉴에 마우스 올리면 색 변경 */
+        .menu>ul>li:hover {
+            background-color: #94a9ff;
+            transition-duration: 0.5s;
+        }
+
+
+
+
+
+
+        .Rectangle7 {
+            width: 380px;
+            height: 114px;
+            left: 0px;
+            top: 0px;
+            position: absolute;
+            background: rgb(8, 8, 36);
+            box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.10);
+            border-radius: 5px;
+        }
+
+        .FundamentalsOfCybersecurity {
+            left: 20px;
+            top: 20px;
+            position: absolute;
+            color: white;
+            font-size: 18px;
+            font-family: Lexend;
+            font-weight: 400;
+            word-wrap: break-word;
+        }
+
+        .Progress2 {
+            left: 20px;
+            top: 76px;
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            font-family: Lexend;
+            font-weight: 400;
+            word-wrap: break-word
+        }
+
+        .Group15 {
+            width: 1440px;
+            height: 114;
+            left: 100px;
+            top: 80px;
+            position: absolute;
+        }
+
+        .Frame2 {
+            width: 24px;
+            height: 24px;
+            left: 336px;
+            top: 20px;
+            position: absolute;
+        }
+
+        .Vector3 {
+            width: 24px;
+            height: 24px;
+            left: 0px;
+            top: 0px;
+            position: absolute;
+        }
+
+        .Vector7 {
+            width: 14px;
+            height: 14px;
+            left: 345px;
+            /* left: 8; */
+            top: 22px;
+            position: relative;
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab">
+        <ul class="tabnav">
+            <li class="li1"><a href="#tab01">
+                    Basic Concepts of Cybersecurity
+                </a></li>
+            <li class="li2"><a style="line-height: 60px;" href="#tab02">CTF Topics</a></li>
+        </ul>
+        <div class="tabcontent">
+            <div id="tab01">
+                <div class="Group15">
+                    <div class="Rectangle7">
+                        <div class="FundamentalsOfCybersecurity">Category명 표시, 타이틀이 일정 영역을 <br> 넘어가면 다음 줄에 표시</div>
+                        <div class="Progress2">(1/8)</div>
+
+                        <div class="menu">
+                            <input type="checkbox" class="" id="collapsible">
+                            <label for="collapsible"></label>
+                            <ul id="menuitems" class="menuitems">
+                                <li><a href="#">submenu01</a></li>
+                                <li><a href="#">submenu02</a></li>
+                                <li><a href="#">submenu03</a></li>
+                                <li><a href="#">submenu04</a></li>
+                                <li><a href="#">submenu05</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tab02" style="color: white;">tab2 content</div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $('.tabcontent > div').hide();
+            $('.tabnav a').click(function () {
+                $('.tabcontent > div').hide().filter(this.hash).fadeIn();
+                $('.tabnav a').removeClass('active');
+                $(this).addClass('active');
+                return false;
+            }).filter(':eq(0)').click();
+        });
+    </script>
+</body>
+
+</html>

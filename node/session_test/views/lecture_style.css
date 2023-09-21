@@ -1,0 +1,936 @@
+.SecuritygroundFrontLecture03 {
+    width: 100vh;
+    height: 900px;
+    left: 200px;
+    background: #1B1F38;
+    display: flex;
+}
+
+.Frame1 {
+    width: 100vh;
+    height: 100px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+}
+
+.VideoSTitleMain {
+    left: 104px;
+    top: 35px;
+    position: absolute;
+    color: white;
+    font-size: 20px;
+    font-family: Lexend;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+
+.Group1 {
+    width: 50px;
+    height: 50px;
+    left: 40px;
+    top: 25px;
+    position: absolute;
+}
+
+.Rectangle1 {
+    width: 50px;
+    height: 50px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background: #262B49;
+    border-radius: 5px;
+}
+
+.ArrowGoBackLine {
+    width: 30px;
+    height: 30px;
+    left: 10px;
+    top: 10px;
+    position: absolute;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    display: inline-flex;
+}
+
+.Group2 {
+    left: 586px;
+    top: 40px;
+    position: absolute;
+}
+
+.CourseRate {
+    left: 0px;
+    top: 0px;
+    color: white;
+    font-size: 16px;
+    font-family: Lexend;
+    font-weight: 400;
+}
+
+.CourseRate2 {
+    left: 101px;
+    top: 0px;
+    position: absolute;
+    color: white;
+    font-size: 16px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.Group3 {
+    left: 761px;
+    top: 40px;
+    position: absolute;
+}
+
+.CourseTime {
+    left: 0px;
+    top: 0px;
+    color: white;
+    font-size: 16px;
+    font-family: Lexend;
+    font-weight: 400;
+}
+
+.CourseTime2 {
+    left: 104px;
+    top: 0px;
+    position: absolute;
+    color: white;
+    font-size: 16px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.Group4 {
+    left: 954px;
+    top: 40px;
+    position: absolute;
+}
+
+.TotalLectureTime {
+    left: 0px;
+    top: 0px;
+    color: white;
+    font-size: 16px;
+    font-family: Lexend;
+    font-weight: 400;
+}
+
+.TotalLectureTime2 {
+    left: 145px;
+    top: 0px;
+    position: absolute;
+    color: white;
+    font-size: 16px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.CddcThumbnail1 {
+    width: 1200px;
+    height: 674.73px;
+    left: 0px;
+    top: 100px;
+    position: absolute;
+    border: 0;
+}
+
+.Group5 {
+    width: 540px;
+    height: 60px;
+    left: 40px;
+    top: 807px;
+    position: absolute;
+
+    /* display: none; 레퍼런스가 없는 영상그룹일 경우*/
+}
+
+.Group6 {
+    width: 540px;
+    height: 60px;
+    left: 620px;
+    top: 807px;
+    position: absolute;
+
+    /* left: 340px; 레퍼런스가 없는 영상그룹일 경우*/
+}
+
+.Rectangle2 {
+    width: 540px;
+    height: 60px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background: #262B49;
+    border-radius: 5px;
+}
+
+.Reference {
+    left: 256px;
+    top: 17px;
+    position: absolute;
+    color: white;
+    font-size: 20px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.SearchLine {
+    width: 24px;
+    height: 24px;
+    left: 222px;
+    top: 18px;
+    position: absolute;
+}
+
+.Vector {
+    width: 20.31px;
+    height: 20.31px;
+    left: 15px;
+    top: 2px;
+    position: absolute;
+    background: white;
+}
+
+.Rectangle3 {
+    width: 540px;
+    height: 60px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background: #262B49;
+    border-radius: 5px;
+}
+
+.GoToRelatedChallenge {
+    left: 170px;
+    top: 17px;
+    position: absolute;
+    color: white;
+    font-size: 20px;
+    font-family: Lexend;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+
+.FlagLine {
+    width: 24px;
+    height: 24px;
+    left: 136px;
+    top: 18px;
+    position: absolute;
+}
+
+.Vector2 {
+    width: 18px;
+    height: 19px;
+    left: 3px;
+    top: 3px;
+    position: absolute;
+    background: white;
+}
+
+.Group7 {
+    width: 500px;
+    height: 970px;
+    left: 1200px;
+    top: 0px;
+    position: absolute;
+    background-color: #262B49;
+    transition-duration: 1s;
+}
+
+.Rectangle4 {
+    width: 500px;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background: #262B49;
+}
+
+.Contents {
+    left: 30px;
+    top: 38px;
+    position: absolute;
+    color: white;
+    font-size: 20px;
+    font-family: Lexend;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+
+.Group8 {
+    width: 380px;
+    height: 655px;
+    left: 10px;
+    top: 325px;
+    position: absolute;
+}
+
+.Rectangle5 {
+    width: 380px;
+    height: 655px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background: #1B1F38;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.10);
+    border-radius: 5px;
+}
+
+.Frame2 {
+    width: 24px;
+    height: 24px;
+    left: 336px;
+    top: 20px;
+    position: absolute;
+}
+
+.Vector3 {
+    width: 24px;
+    height: 24px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+}
+
+.FundamentalsOfCybersecurity {
+    left: 20px;
+    top: 20px;
+    position: absolute;
+    color: white;
+    font-size: 18px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.Progress {
+    left: 20px;
+    top: 53px;
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.Progress2 {
+    left: 20px;
+    top: 63px;
+    position: relative;
+    color: white;
+    font-size: 14px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word
+}
+
+.VideoSTitle {
+    width: 308.75px;
+    left: 60px;
+    top: 25px;
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word
+}
+
+.VideoSLength {
+    width: 308.75px;
+    left: 60px;
+    top: 48px;
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word
+}
+
+.CheckboxCircleFill {
+    width: 30px;
+    height: 30px;
+    left: 20px;
+    top: 15px;
+    position: absolute;
+}
+
+.Vector5 {
+    width: 25px;
+    height: 25px;
+    left: 2.50px;
+    top: 2.50px;
+    position: absolute;
+    background: #00F9FF;
+}
+
+.Group9 {
+    width: 370px;
+    height: 78px;
+    left: 10px;
+    top: 86px;
+    position: absolute;
+}
+
+.Group10 {
+    width: 370px;
+    height: 78px;
+    left: 10px;
+    top: 164px;
+    position: absolute;
+}
+
+.Rectangle6 {
+    width: 370px;
+    height: 78px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background: #1B1F38;
+}
+
+.Rectangle6:hover {
+    background-color: #535A82;
+}
+
+.Group11 {
+    width: 370px;
+    height: 78px;
+    left: 10px;
+    top: 242px;
+    position: absolute;
+}
+
+.Group12 {
+    width: 370px;
+    height: 78px;
+    left: 10px;
+    top: 320px;
+    position: absolute;
+}
+
+.Group13 {
+    width: 370px;
+    height: 78px;
+    left: 10px;
+    top: 398px;
+    position: absolute;
+}
+
+.Group14 {
+    width: 370px;
+    height: 78px;
+    left: 10px;
+    top: 476px;
+    position: absolute;
+}
+
+.Group15_1 {
+    width: 460px;
+    height: 114px;
+    left: 10px;
+    top: 90px;
+    position: absolute;
+    display: block;
+}
+
+.Group15_2 {
+    width: 460px;
+    height: 114px;
+    left: 10px;
+    top: 220px;
+    position: absolute;
+    display: block;
+}
+
+.Group15_3 {
+    width: 460px;
+    height: 114px;
+    left: 10px;
+    top: 350px;
+    position: absolute;
+    display: block;
+
+    transition-property: display;
+    transition-duration: 3s;
+    transition-delay: 1s;
+}
+
+.Group15_4 {
+    width: 460px;
+    height: 114px;
+    left: 10px;
+    top: 480px;
+    position: absolute;
+    display: block;
+}
+
+.Group15_5 {
+    width: 460px;
+    height: 114px;
+    left: 10px;
+    top: 610px;
+    position: absolute;
+    display: block;
+}
+
+.Group15_6 {
+    width: 460px;
+    height: 114px;
+    left: 10px;
+    top: 740px;
+    position: absolute;
+    display: block;
+}
+
+.Group16 {
+    width: 380px;
+    height: 71px;
+    left: 10px;
+    top: 100px;
+    position: absolute;
+}
+
+.Rectangle7 {
+    width: 460px;
+    height: 114px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background: #1B1F38;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.10);
+    border-radius: 5px;
+}
+
+.Category {
+    left: 20px;
+    top: 20px;
+    position: absolute;
+    color: white;
+    font-size: 18px;
+    font-family: Lexend;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.Vector7 {
+    width: 14px;
+    height: 14px;
+    left: 5px;
+    top: 5px;
+    position: absolute;
+    background: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 드롭다운 메뉴 바 CSS */
+
+* {
+    padding: 0;
+    margin: 0
+}
+
+li {
+    list-style: none
+}
+
+a {
+    text-decoration: none;
+    font-size: 14px
+}
+
+label {
+    margin-left: 415px;
+}
+
+.menu {
+    width: 460px;
+    overflow: hidden;
+    /* margin: 100px auto; */
+    position: absolute;
+    display: inline-block;
+}
+
+/* 이미지 체크박스 */
+.menu input[type=checkbox] {
+    display: none;
+}
+
+.menu input[type=checkbox]+label {
+    padding-left: 25px;
+    background-image: url('./images/Frame.png');
+    background-repeat: no-repeat;
+}
+
+.menu input[type=checkbox]+label>span {
+    font-weight: bold;
+}
+
+.menu input[type=checkbox]:checked+label {
+    background-image: url('./images/Frame2.png');
+}
+
+/* 메뉴 목록*/
+.menu .menuitems {
+    /* display: none; */
+    list-style: none;
+    margin-top: 73px;
+    height: 0px;
+    width: 481px;
+    overflow: auto;
+    /* white-space: nowrap; */
+    transition-duration: 1s;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.menu .menuitems li {
+    padding: 5px;
+    width: 97%;
+    line-height: 78px;
+    background: #1B1F38;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.10);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 88px;
+}
+
+.menu .menuitems li a {
+    text-decoration: none;
+    color: #fff;
+    margin-left: 10px;
+    width: 308.75px;
+    font-size: 14px;
+    font-family: Lexend;
+    font-weight: 400;
+    /* word-wrap: break-word; */
+}
+
+.menu .menuitems1 {
+    /* display: none; */
+    list-style: none;
+    margin-top: 73px;
+    height: 0px;
+    width: 481px;
+    overflow: auto;
+    /* white-space: nowrap; */
+    transition-duration: 1s;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.menu .menuitems1 li {
+    padding: 5px;
+    width: 97%;
+    line-height: 78px;
+    background: #1B1F38;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.10);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 88px;
+}
+
+.menu .menuitems1 li a {
+    text-decoration: none;
+    color: #fff;
+    margin-left: 10px;
+    width: 308.75px;
+    font-size: 14px;
+    font-family: Lexend;
+    font-weight: 400;
+    /* word-wrap: break-word; */
+}
+
+/* 메뉴 펼침 - 체크박스 체크되면 메뉴목록 표시 */
+.menu input[type=checkbox]:checked~.menuitems {
+    display: block;
+    height: 380px;
+}
+
+.menu input[type=checkbox]:checked~.menuitems1 {
+    display: block;
+    height: 380px;
+}
+
+/* 펼쳐진 메뉴에 마우스 올리면 색 변경 */
+.menu>ul>li:hover {
+    background-color: #94a9ff;
+    transition-duration: 0.5s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 영상 카테고리 탭 CSS */
+
+html,
+body {
+    width: 100vh;
+}
+
+body,
+div,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+/*tab css*/
+.tab {
+    float: left;
+    width: 480px;
+    height: 290px;
+}
+
+.tabnav {
+    font-size: 0;
+    width: 600px;
+    /* border: 1px solid #ddd; */
+}
+
+.li1 {
+    width: 240px;
+}
+
+.li2 {
+    width: 240px;
+    margin-right: 120px;
+    float: right;
+}
+
+.tabnav li {
+    display: block;
+    height: 0px;
+    text-align: center;
+    border-right: 0px solid #ddd;
+}
+
+.tabnav li1 a:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 92px;
+    width: 100%;
+    height: 3px;
+}
+
+.tabnav li2 a:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 46px;
+    width: 100%;
+    height: 3px;
+}
+
+.tabnav li a.active {
+    border-bottom: 3px solid #00F9FF;
+}
+
+.tabnav li a {
+    position: relative;
+    display: block;
+    background: #262B49;
+    color: #fff;
+    padding: 0 50px;
+    line-height: 30px;
+    text-decoration: none;
+    font-family: Lexend;
+    font-size: 16px;
+    border-bottom: 3px solid #fff;
+    height: 63px;
+}
+
+.tabnav li a:hover,
+.tabnav li a.active {
+    background: #262B49;
+    color: #00F9FF;
+}
+
+.tabcontent {
+    margin-top: 63px;
+    padding: 20px;
+    height: 700px;
+    border: 0px solid #ddd;
+    border-top: none;
+    background: #262B49;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#popup_container {
+    width: 30%;
+    height: 30%;
+    margin: 0 auto;
+    padding: 0;
+    border: none;
+
+    /* 그라데이션 : 왼쪽 위 > 오른쪽 아래 */
+    background: #262B49;
+
+    /* 컨테이너 배치 정렬 실시 : fixed를 사용해야 브라우저 기준으로 위치 표시함 */
+    float: top;
+    position: fixed;
+    top: 8%;
+    left: 35%;
+
+    /* 마우스 커서 스타일 */
+    cursor: pointer;
+
+    /* div 테두리 원형 설정 */
+    border-radius: 20px;
+
+    /* display 설정 : 표시여부 */
+    display: none;
+
+    /* z-index 우선 순위 설정 */
+    z-index: 999;
+}
+
+#body_full {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+
+    /* 배경 색상 지정 : 검정색 */
+    background-color: #000000;
+
+    /* 포지션 지정 실시 : fixed 사용해 브라우저 전체 덮음 */
+    position: fixed;
+    top: 0%;
+    left: 0%;
+
+    /* z-index 우선 순위 설정 : 다른 레이아웃 보다 크고, 팝업창 보단 작아야함 */
+    z-index: 998;
+
+    /* 투명도 조절 실시 */
+    opacity: 0.5;
+
+    /* display 설정 : 표시 여부 */
+    display: none;
+}
+
+#popup_container>#popup_title {
+    color: #fff;
+    font-family: Lexend;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 25px;
+    float: left;
+}
+
+#popup_container>#close_popup {
+    float: right;
+    margin-right: 25px;
+}
+
+#popup_container>hr {
+    width: 520px;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+#popup_container>div>a {
+    font-family: Lexend;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2px;
+    color: #00F9FF;
+}
+
+#popup_container>div {
+    line-height: 200%;
+    margin-top: 15px;
+    margin-left: 25px;
+}

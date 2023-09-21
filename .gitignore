@@ -34,7 +34,10 @@ node/**/**/node_modules
 node/**/**/package-lock.json
 node/**/**/package.json
 node/config/pool.js
-
+node/final_proj
+final_proj
+node/master_proj_file
+master_proj_file
 
 ##python
 python/**/.venv

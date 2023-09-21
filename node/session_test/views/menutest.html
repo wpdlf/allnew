@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            background-color: rgb(8, 8, 36);
+        }
+
+        * {
+            padding: 0;
+            margin: 0
+        }
+
+        li {
+            list-style: none
+        }
+
+        a {
+            text-decoration: none;
+            font-size: 14px
+        }
+
+        label {
+            margin-left: 355px;
+        }
+
+        .menu {
+            width: 380px;
+            overflow: hidden;
+            /* margin: 100px auto; */
+            position: relative;
+            display: inline-block;
+        }
+
+        /* 이미지 체크박스 */
+        .menu input[type=checkbox] {
+            display: none;
+        }
+
+        .menu input[type=checkbox]+label {
+            padding-left: 25px;
+            background-image: url('./images/Frame.png');
+            background-repeat: no-repeat;
+        }
+
+        .menu input[type=checkbox]+label>span {
+            font-weight: bold;
+        }
+
+        .menu input[type=checkbox]:checked+label {
+            background-image: url('./images/Frame2.png');
+        }
+
+        /* 메뉴 목록*/
+        .menu .menuitems {
+            /* display: none; */
+            list-style: none;
+            margin-top: 93px;
+            height: 0px;
+            width: 397px;
+            overflow: auto;
+            /* white-space: nowrap; */
+            transition-duration: 1s;
+        }
+
+        .menu .menuitems li {
+            padding: 5px;
+            width: 97%;
+            /*20*5=100%*/
+            /* float: left; */
+            text-align: left;
+            line-height: 50px;
+            background-color: #1B1F38;
+        }
+
+        .menu .menuitems li a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        /* 메뉴 펼침 - 체크박스 체크되면 메뉴목록 표시 */
+        .menu input[type=checkbox]:checked~.menuitems {
+            display: block;
+            height: 380px;
+        }
+
+        /* 펼쳐진 메뉴에 마우스 올리면 색 변경 */
+        .menu>ul>li:hover {
+            background-color: #94a9ff;
+            transition-duration: 0.5s;
+        }
+
+
+
+
+
+
+        .Rectangle7 {
+            width: 380px;
+            height: 114px;
+            left: 0px;
+            top: 0px;
+            position: absolute;
+            background: #1B1F38;
+            box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.10);
+            border-radius: 5px;
+        }
+
+        .FundamentalsOfCybersecurity {
+            left: 20px;
+            top: 20px;
+            position: absolute;
+            color: white;
+            font-size: 18px;
+            font-family: Lexend;
+            font-weight: 400;
+            word-wrap: break-word;
+        }
+
+        .Progress2 {
+            left: 20px;
+            top: 76px;
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            font-family: Lexend;
+            font-weight: 400;
+            word-wrap: break-word
+        }
+
+        .Group15 {
+            width: 1440px;
+            height: 114;
+            left: 10px;
+            top: 191px;
+            position: absolute;
+        }
+
+        .Frame2 {
+            width: 24px;
+            height: 24px;
+            left: 336px;
+            top: 20px;
+            position: absolute;
+        }
+
+        .Vector3 {
+            width: 24px;
+            height: 24px;
+            left: 0px;
+            top: 0px;
+            position: absolute;
+        }
+
+        .Vector7 {
+            width: 14px;
+            height: 14px;
+            left: 345px;
+            /* left: 8; */
+            top: 22px;
+            position: relative;
+            background: white;
+        }
+
+
+
+
+
+        .BasicConceptsOfCybersecurity {
+            width: 161.24px;
+            left: 14.38px;
+            top: 13px;
+            position: absolute;
+            text-align: center;
+            color: #00F9FF;
+            font-size: 18px;
+            font-family: Lexend;
+            font-weight: 400;
+            word-wrap: break-word;
+        }
+
+        .Group16 {
+            width: 380px;
+            height: 71px;
+            left: 10px;
+            top: 100px;
+            position: absolute;
+        }
+
+        .CtfTopics {
+            left: 238.81px;
+            top: 24px;
+            position: absolute;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-family: Lexend;
+            font-weight: 400;
+            word-wrap: break-word;
+        }
+
+        .Line24 {
+            width: 380px;
+            height: 0px;
+            left: 0px;
+            top: 71px;
+            position: absolute;
+            border: 2px white solid;
+        }
+
+        .Line25 {
+            width: 380px;
+            height: 0px;
+            left: 0px;
+            top: 0px;
+            position: absolute;
+        }
+
+        .Line23 {
+            width: 190px;
+            height: 0px;
+            left: 0px;
+            top: 71px;
+            position: absolute;
+            box-shadow: 0px 1px 10px #00F9FF;
+            border: 2px #00F9FF solid;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="Group15">
+        <div class="Rectangle7">
+            <div class="FundamentalsOfCybersecurity">Category명 표시, 타이틀이 일정 영역을 <br> 넘어가면 다음 줄에 표시</div>
+            <div class="Progress2">(1/8)</div>
+
+            <div class="menu">
+                <input type="checkbox" class="" id="collapsible">
+                <label for="collapsible"></label>
+                <ul id="menuitems" class="menuitems">
+                    <li><a href="#">submenu01</a></li>
+                    <li><a href="#">submenu02</a></li>
+                    <li><a href="#">submenu03</a></li>
+                    <li><a href="#">submenu04</a></li>
+                    <li><a href="#">submenu05</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="Group16">
+        <div class="CtfTopics">CTF Topics</div>
+        <div class="BasicConceptsOfCybersecurity">Basic Concepts of Cybersecurity</div>
+        <div class="Line24"></div>
+        <div class="Line25"></div>
+        <div class="Line23">
+        </div>
+    </div>
+
+</body>
+
+</html>
